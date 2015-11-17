@@ -10,6 +10,6 @@ import scala.language.{implicitConversions, postfixOps}
 
 object Scenarios {
 
-  val readRepositoryScenario = scenario("Read repository").exec(Repository.read("Environments/dir1/dict1"));
+  val readRepositoryScenario = scenario("Read repository").repeat(100) { exec(Repository.read("Environments/dir1/dict1")) }
 
 }
