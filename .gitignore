@@ -1,0 +1,33 @@
+results
+runner/reports
+*/build
+
+# Scala
+*.class
+*.log
+
+# build output
+.gradle/
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# IDE
+.scala_dependencies
+.worksheet
+.classpath
+.project
+.idea
+*.iml
+*.ipr
+*.iws
+
+# OSX
+.DS_Store
+build

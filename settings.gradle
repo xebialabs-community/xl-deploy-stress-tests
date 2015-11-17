@@ -1,0 +1,3 @@
+rootProject.name = 'xl-deploy-stress-tests'
+
+include 'data-generator', 'runner'
