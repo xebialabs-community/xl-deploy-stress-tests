@@ -15,13 +15,13 @@ package object domain {
 
   case class Command(id: String, commandLine: String, `type`: String = "cmd.Command") extends Ci
 
-  case class DeploymentPackage(id: String, `type`: String = "udm.DeploymentPackage") extends Ci
+  case class DeploymentPackage(id: String, orchestrator: Seq[String], `type`: String = "udm.DeploymentPackage") extends Ci
 
   case class Directory(id: String, `type`: String = "core.Directory") extends Ci
 
   case class Dictionary(id: String, entries: Map[String, String], encryptedEntries: Map[String, String], `type`: String = "udm.Dictionary") extends Ci
 
-  case class Environment(id: String, members: Seq[CiRef], dictionaries: Seq[String], `type`: String = "udm.Environment") extends Ci
+  case class Environment(id: String, members: Seq[CiRef], dictionaries: Seq[CiRef], `type`: String = "udm.Environment") extends Ci
 
   case class SshHost(id: String, os: String, connectionType: String, address: String, username: String, password: String, `type`: String = "overthere.SshHost") extends Ci
 

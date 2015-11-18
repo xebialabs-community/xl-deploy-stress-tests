@@ -2,7 +2,6 @@ package com.xebialabs.xldeploy.stresstests.runner.chain
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.http.request.Body
 
 object Repository {
 

@@ -16,7 +16,7 @@ object Main extends App with LazyLogging {
 
   logger.info("Starting XL Deploy stress tests suite.")
 
-  private val simulationProvValue = Option(System.getProperty(simulationPropKey)).getOrElse(classOf[ReadRepositorySimulation].getCanonicalName)
+  private val simulationProvValue = Option(System.getProperty(simulationPropKey)).getOrElse(classOf[RunCommandSimulation].getCanonicalName)
 
   private val simulationsToRun = simulationProvValue.split(",").map(simulationClassByName)
 

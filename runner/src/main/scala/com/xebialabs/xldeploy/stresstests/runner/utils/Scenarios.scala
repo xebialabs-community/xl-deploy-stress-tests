@@ -10,6 +10,12 @@ import scala.language.{implicitConversions, postfixOps}
 
 object Scenarios {
 
-  val readRepositoryScenario = scenario("Read repository").repeat(10, "dictNr") { exec(Repository.read("Environments/dir1/dict${dictNr}")) }
+  val readRepositoryScenario = scenario("Read repository").repeat(10, "dictNr") {
+    exec(Repository.read("Environments/dir1/dict${dictNr}"))
+  }
 
+  val runCommandScenario = scenario("Run command").repeat(1) {
+    exec(Deployment.prepareInitialDeployment("Applications/cmdapp1/v1", "Environments/10hosts")).
+      exec(Deployment.executeDeployment)
+  }
 }

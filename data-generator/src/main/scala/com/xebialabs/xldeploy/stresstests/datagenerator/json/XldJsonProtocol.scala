@@ -9,7 +9,7 @@ trait XldJsonProtocol extends DefaultJsonProtocol with AdditionalFormats with Zo
   implicit val ciRefFormat = jsonFormat2(CiRef.apply)
   implicit val applicationFormat = jsonFormat2(Application.apply)
   implicit val commandFormat = jsonFormat3(Command.apply)
-  implicit val deploymentPackageFormat = jsonFormat2(DeploymentPackage.apply)
+  implicit val deploymentPackageFormat = jsonFormat3(DeploymentPackage.apply)
   implicit val dictionaryFormat = jsonFormat4(Dictionary.apply)
   implicit val directoryFormat = jsonFormat2(Directory.apply)
   implicit val environmentFormat = jsonFormat4(Environment.apply)

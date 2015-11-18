@@ -36,8 +36,8 @@ object Main extends App with LazyLogging {
   futures ++= Range(0, nrOfHosts).map( hostNr => client.createCi(SshHost(s"Infrastructure/host${hostNr}", "UNIX", "SCP", "overthere", "overthere", "overhere")))
   futures :+= client.createCi(Environment(s"Environments/${nrOfHosts}hosts", Range(0, nrOfHosts).map( hostNr => CiRef(s"Infrastructure/host${hostNr}", "overthere.SshHost")), Seq()))
   futures :+= client.createCi(Application("Applications/cmdapp1"))
-  futures :+= client.createCi(DeploymentPackage("Applications/cmdapp1/v1"))
-  futures :+= client.createCi(Command("Applications/cmdapp1/v1/cmd1", "date"))
+  futures :+= client.createCi(DeploymentPackage("Applications/cmdapp1/v1", Seq("parallel-by-container")))
+  futures :+= client.createCi(Command("Applications/cmdapp1/v1/cmd1", "sleep 10"))
 
   val allFutures = Future.sequence(futures)
 

@@ -12,5 +12,5 @@ package object runner {
       .baseURLs(RunnerConfig.input.baseUrls)
       .acceptHeader("application/xml")
       .basicAuth(RunnerConfig.input.username, RunnerConfig.input.password)
-      .contentTypeHeader("application/json; charset=UTF-8").build
+      .contentTypeHeader("application/xml").build
 }
