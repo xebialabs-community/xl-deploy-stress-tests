@@ -22,19 +22,28 @@ object Main extends App with LazyLogging {
 
   var futures: Seq[Future[HttpResponse]] = Seq()
 
-  val nrOfDirs = 10
+  val nrOfDictDirs = 10
   val nrOfDictsPerDir = 10
-  futures ++= Range(0, nrOfDirs).map( dirNr => client.createCi(Directory(s"Environments/dir$dirNr")))
-  futures ++= Range(0, nrOfDirs).flatMap( dirNr => createNDictionariesIn(nrOfDictsPerDir, s"Environments/dir$dirNr"))
+  futures ++= Range(0, nrOfDictDirs).map(dirNr => client.createCi(Directory(s"Environments/dir$dirNr")))
+  futures ++= Range(0, nrOfDictDirs).flatMap(dirNr => createNDictionariesIn(nrOfDictsPerDir, s"Environments/dir$dirNr"))
+
   def createNDictionariesIn(n: Int, dirId: String) = {
     Range(0, n).map(dictNr => client.createCi(Dictionary(s"$dirId/dict$dictNr",
       Map("key1" -> "value1", "jdbc.url" -> "jdbc:oracle:thin:@localhost:1521:ORCL"),
       Map("encryptedKey1" -> "secret", "scott" -> "tiger"))))
   }
 
-  val nrOfHosts = 10
-  futures ++= Range(0, nrOfHosts).map( hostNr => client.createCi(SshHost(s"Infrastructure/host${hostNr}", "UNIX", "SCP", "overthere", "overthere", "overhere")))
-  futures :+= client.createCi(Environment(s"Environments/${nrOfHosts}hosts", Range(0, nrOfHosts).map( hostNr => CiRef(s"Infrastructure/host${hostNr}", "overthere.SshHost")), Seq()))
+  val nrOfEnvs = 10
+  val nrOfHostsPerEnv = 10
+  futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Directory(s"Infrastructure/env${envNr}")))
+  futures ++= Range(0, nrOfEnvs).flatMap(envNr => createNHostsIn(nrOfHostsPerEnv, s"Infrastructure/env${envNr}"))
+
+  def createNHostsIn(n: Int, dirId: String) = {
+    Range(0, n).map(hostNr => client.createCi(SshHost(s"${dirId}/host${hostNr}", "UNIX", "SCP", "overthere", "overthere", "overhere")))
+  }
+
+  futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Environment(s"Environments/env${envNr}", Range(0, nrOfHostsPerEnv).map(hostNr => CiRef(s"Infrastructure/env${envNr}/host${hostNr}", "overthere.SshHost")), Seq())))
+
   futures :+= client.createCi(Application("Applications/cmdapp1"))
   futures :+= client.createCi(DeploymentPackage("Applications/cmdapp1/v1", Seq("parallel-by-container")))
   futures :+= client.createCi(Command("Applications/cmdapp1/v1/cmd1", "sleep 10"))
