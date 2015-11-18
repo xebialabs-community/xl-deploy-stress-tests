@@ -16,6 +16,8 @@ object Scenarios {
 
   val runCommandScenario = scenario("Run command").repeat(1) {
     exec(Deployment.prepareInitialDeployment("Applications/cmdapp1/v1", "Environments/10hosts")).
+      exec(Deployment.executeDeployment).
+      exec(Deployment.prepareUndeployment("Environments/10hosts/cmdapp1")).
       exec(Deployment.executeDeployment)
   }
 }

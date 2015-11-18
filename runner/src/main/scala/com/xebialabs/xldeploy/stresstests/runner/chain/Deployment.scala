@@ -17,6 +17,12 @@ object Deployment {
         check(status.is(200), bodyBytes.saveAs("configuredDeployment"))
       )
 
+  def prepareUndeployment(deployedApplicationId: String) =
+    exec(http("1. Prepare undeployment").
+      get(s"/deployment/prepare/undeploy?deployedApplication=${encode(deployedApplicationId, "UTF-8")}").
+      check(status.is(200), bodyBytes.saveAs("configuredDeployment"))
+    )
+
   def executeDeployment =
     exec(http("3. Create deployment task").
       post("/deployment").
