@@ -1,10 +1,9 @@
 package com.xebialabs.xldeploy.stresstests.runner.utils
 
-import io.gatling.core.Predef._
-import io.gatling.http.Predef._
-import io.gatling.http.request.StringBody
+import java.util.concurrent.atomic.AtomicInteger
+
 import com.xebialabs.xldeploy.stresstests.runner.chain._
-import com.xebialabs.xldeploy.stresstests.runner.config.RunnerConfig._
+import io.gatling.core.Predef._
 
 import scala.language.{implicitConversions, postfixOps}
 
@@ -14,10 +13,15 @@ object Scenarios {
     exec(Repository.read("Environments/dir1/dict${dictNr}"))
   }
 
-  val runCommandScenario = scenario("Run command").repeat(1) {
-    exec(Deployment.prepareInitialDeployment("Applications/cmdapp1/v1", "Environments/env0")).
-      exec(Deployment.executeDeployment).
-      exec(Deployment.prepareUndeployment("Environments/env0/cmdapp1")).
-      exec(Deployment.executeDeployment)
-  }
+  val userNumber = new AtomicInteger
+
+  val runCommandScenario = scenario("Run command").exec(
+    _.set("userNr", userNumber.getAndIncrement())).
+    repeat(1) {
+        exec(Deployment.prepareInitialDeployment("Applications/cmdapp1/v1", "Environments/env${userNr}")).
+        exec(Deployment.executeDeployment).
+        exec(Deployment.prepareUndeployment("Environments/env${userNr}/cmdapp1")).
+        exec(Deployment.executeDeployment)
+    }
+
 }

@@ -13,9 +13,9 @@ abstract class SimulationBase(scenarios: List[ScenarioBuilder]) extends Simulati
   setUp(
     scenarios.map(
       _.inject(
-//        atOnceUsers(1),
-//        nothingFor(RunnerConfig.simulations.postWarmUpPause),
-        rampUsers(RunnerConfig.input.users) over RunnerConfig.simulations.rampUpPeriod
+        atOnceUsers(1),
+        nothingFor(RunnerConfig.simulations.postWarmUpPause),
+        rampUsers(RunnerConfig.input.users - 1) over RunnerConfig.simulations.rampUpPeriod
       )
     )
   ).protocols(httpProtocol)
