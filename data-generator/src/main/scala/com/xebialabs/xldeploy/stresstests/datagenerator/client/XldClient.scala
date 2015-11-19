@@ -1,5 +1,6 @@
 package com.xebialabs.xldeploy.stresstests.datagenerator.client
 
+import java.io.File
 import java.util.concurrent.atomic.AtomicInteger
 
 import akka.actor.ActorSystem
@@ -11,6 +12,7 @@ import spray.client.pipelining._
 import spray.http._
 import spray.httpx.SprayJsonSupport._
 import spray.json._
+import spray.http.MediaTypes._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -66,4 +68,13 @@ class XldClient(apiUrl: String, username: String = "admin", password: String = "
   def removeCi(id: String): Future[HttpResponse] =
     strictPipeline(Delete(s"$apiUrl/repository/ci/$id"))
 
+  def uploadPackage(packageName: String): Future[HttpResponse] = {
+    val contentType = ContentType(`application/octet-stream`)
+    val contentTypeHeader = HttpHeaders.`Content-Type`(contentType)
+    val contentDispositionHeader = HttpHeaders.`Content-Disposition`("form-data", Map("name" -> "fileData", "filename" -> s"$packageName.dar"))
+    val headerSeq = Seq(contentTypeHeader, contentDispositionHeader)
+    val httpData = HttpData(new File("/Users/vinny/Desktop/PetClinic-ear-1.0.dar"))
+    val mfd = new MultipartFormData(Seq(new BodyPart(HttpEntity(contentType, httpData), headerSeq)))
+    strictPipeline(Post(s"$apiUrl/package/upload/$packageName.dar", mfd))
+  }
 }
