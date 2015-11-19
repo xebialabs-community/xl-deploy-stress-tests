@@ -9,7 +9,7 @@ object Deployment {
 
   def prepareInitialDeployment(versionId: String, environmentId: String) =
     exec(http("1. Prepare initial deployment").
-      get(s"/deployment/prepare/initial?version=${versionId}&environment=${environmentId}").
+      get(s"/deployment/prepare/initial").queryParam("version", versionId).queryParam("environment", environmentId)
       check(status.is(200), bodyBytes.saveAs("intialDeployment"))).
       exec(http("2. Map deployeds").
         post("/deployment/prepare/deployeds").
@@ -19,7 +19,7 @@ object Deployment {
 
   def prepareUndeployment(deployedApplicationId: String) =
     exec(http("1. Prepare undeployment").
-      get(s"/deployment/prepare/undeploy?deployedApplication=${deployedApplicationId}").
+      get(s"/deployment/prepare/undeploy").queryParam("deployedApplication", deployedApplicationId)
       check(status.is(200), bodyBytes.saveAs("configuredDeployment"))
     )
 
