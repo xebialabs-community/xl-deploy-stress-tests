@@ -22,6 +22,7 @@ object Main extends App with LazyLogging {
 
   var futures: Seq[Future[HttpResponse]] = Seq()
 
+  // create directories and dictionaries for readRepositoryScenario
   val nrOfDictDirs = 10
   val nrOfDictsPerDir = 10
   futures ++= Range(0, nrOfDictDirs).map(dirNr => client.createCi(Directory(s"Environments/dir$dirNr")))
@@ -33,6 +34,7 @@ object Main extends App with LazyLogging {
       Map("encryptedKey1" -> "secret", "scott" -> "tiger"))))
   }
 
+  // create environments for runCommandsScenario
   val nrOfEnvs = 10
   val nrOfHostsPerEnv = 10
   futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Directory(s"Infrastructure/env${envNr}")))
@@ -44,9 +46,21 @@ object Main extends App with LazyLogging {
 
   futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Environment(s"Environments/env${envNr}", Range(0, nrOfHostsPerEnv).map(hostNr => CiRef(s"Infrastructure/env${envNr}/host${hostNr}", "overthere.SshHost")), Seq())))
 
+  // create package for runCommandsScenario
   futures :+= client.createCi(Application("Applications/cmdapp1"))
   futures :+= client.createCi(DeploymentPackage("Applications/cmdapp1/v1", Seq("parallel-by-container")))
   futures :+= client.createCi(Command("Applications/cmdapp1/v1/cmd1", "sleep 10"))
+
+  // create packages for copyFilesScenario
+  val nrOfApps = 2
+  val nrOfVersionsPerApp = 2
+  val nrOfArtifactsPerVersion = 10
+  val nrOfMbPerArtifacts = 100
+  futures ++= Range(0, nrOfApps).flatMap(appNr => createNVersions(s"filesapp$appNr"))
+
+  def createNVersions(application: String) = {
+    Range(0, nrOfVersionsPerApp).map(versionNr => client.generateAndUploadPackage(application, s"$versionNr", nrOfArtifactsPerVersion, nrOfMbPerArtifacts))
+  }
 
   val allFutures = Future.sequence(futures)
 
