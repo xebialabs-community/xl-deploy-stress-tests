@@ -80,9 +80,14 @@ class XldClient(apiUrl: String, username: String = "admin", password: String = "
     val darByteStream = new FileOutputStream(darFile)
     val darStream = new ZipOutputStream(darByteStream)
     val manifest = <udm.DeploymentPackage application={applicationName} version={version}>
+      <orchestrator>
+        <value>parallel-by-container</value>
+      </orchestrator>
       <deployables>
         {for (a <- 0 to nrOfArtifacts - 1) yield
-          <file.File name={s"artifact-$applicationName-$version-${a}"} file={s"artifact-$applicationName-$version-${a}.bin"}/>}
+        <file.File name={s"artifact-$applicationName-$version-${a}"} file={s"artifact-$applicationName-$version-${a}.bin"}>
+          <targetPath>/tmp</targetPath>
+        </file.File>}
       </deployables>
     </udm.DeploymentPackage>
     darStream.putNextEntry(new ZipEntry("deployit-manifest.xml"))
