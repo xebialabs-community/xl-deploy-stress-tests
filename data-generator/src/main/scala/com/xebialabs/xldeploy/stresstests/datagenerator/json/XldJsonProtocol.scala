@@ -13,7 +13,7 @@ trait XldJsonProtocol extends DefaultJsonProtocol with AdditionalFormats with Zo
   implicit val dictionaryFormat = jsonFormat4(Dictionary.apply)
   implicit val directoryFormat = jsonFormat2(Directory.apply)
   implicit val environmentFormat = jsonFormat4(Environment.apply)
-  implicit val sshHostFormat = jsonFormat7(SshHost.apply)
+  implicit val sshHostFormat = jsonFormat8(SshHost.apply)
 
   implicit object CiProtocol extends RootJsonFormat[Ci] {
     def read(json: JsValue): Ci = {
