@@ -86,7 +86,7 @@ class XldClient(apiUrl: String, username: String = "admin", password: String = "
       <deployables>
         {for (a <- 0 to nrOfArtifacts - 1) yield
         <file.File name={s"artifact-$applicationName-$version-${a}"} file={s"artifact-$applicationName-$version-${a}.bin"}>
-          <targetPath>/tmp</targetPath>
+          <targetPath>/home/centos/uploaded</targetPath>
         </file.File>}
       </deployables>
     </udm.DeploymentPackage>

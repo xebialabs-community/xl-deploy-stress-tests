@@ -6,4 +6,6 @@ import scala.language.{implicitConversions, postfixOps}
 
 class ReadRepositorySimulation extends SimulationBase(readRepositoryScenario)
 
-class RunCommandSimulation extends SimulationBase(runCommandScenario)
+class RunCommandsSimulation extends SimulationBase(runCommandsScenario)
+
+class CopyFilesSimulation extends SimulationBase(copyFilesScenario)

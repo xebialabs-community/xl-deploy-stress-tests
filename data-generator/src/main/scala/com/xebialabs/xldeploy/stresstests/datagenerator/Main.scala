@@ -41,7 +41,7 @@ object Main extends App with LazyLogging {
   futures ++= Range(0, nrOfEnvs).flatMap(envNr => createNHostsIn(nrOfHostsPerEnv, s"Infrastructure/env${envNr}"))
 
   def createNHostsIn(n: Int, dirId: String) = {
-    Range(0, n).map(hostNr => client.createCi(SshHost(s"${dirId}/host${hostNr}", "UNIX", "SCP", "overthere", "overthere", "overhere")))
+    Range(0, n).map(hostNr => client.createCi(SshHost(s"${dirId}/host${hostNr}", "UNIX", "SCP", "perf1", "centos", "centos")))
   }
 
   futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Environment(s"Environments/env${envNr}", Range(0, nrOfHostsPerEnv).map(hostNr => CiRef(s"Infrastructure/env${envNr}/host${hostNr}", "overthere.SshHost")), Seq())))
