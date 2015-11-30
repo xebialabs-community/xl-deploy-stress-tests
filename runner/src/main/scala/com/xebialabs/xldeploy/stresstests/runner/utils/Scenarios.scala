@@ -18,7 +18,7 @@ object Scenarios {
   val runCommandsScenario = scenario("Run commands").exec(
     _.set("userNr", userNumber.getAndIncrement())).
     repeat(1) {
-        exec(Deployment.prepareInitialDeployment("Applications/cmdapp1/v1", "Environments/env${userNr}")).
+        exec(Deployment.prepareInitialDeployment("Applications/cmdapp0/0", "Environments/env${userNr}")).
         exec(Deployment.executeDeployment).
         exec(Deployment.prepareUndeployment("Environments/env${userNr}/cmdapp1")).
         exec(Deployment.executeDeployment)
@@ -27,9 +27,9 @@ object Scenarios {
   val copyFilesScenario = scenario("Copy files").exec(
     _.set("userNr", userNumber.getAndIncrement())).
     repeat(1) {
-      exec(Deployment.prepareInitialDeployment("Applications/filesapp1/0", "Environments/env${userNr}")).
+      exec(Deployment.prepareInitialDeployment("Applications/filesapp0/0", "Environments/env${userNr}")).
         exec(Deployment.executeDeployment).
-        exec(Deployment.prepareUndeployment("Environments/env${userNr}/filesapp1")).
+        exec(Deployment.prepareUndeployment("Environments/env${userNr}/filesapp0")).
         exec(Deployment.executeDeployment)
     }
 

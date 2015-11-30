@@ -47,14 +47,14 @@ object Main extends App with LazyLogging {
   futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Environment(s"Environments/env${envNr}", Range(0, nrOfHostsPerEnv).map(hostNr => CiRef(s"Infrastructure/env${envNr}/host${hostNr}", "overthere.SshHost")), Seq())))
 
   // create package for runCommandsScenario
-  futures :+= client.createCi(Application("Applications/cmdapp1")).
-    flatMap(_ => client.createCi(DeploymentPackage("Applications/cmdapp1/v1", Seq("parallel-by-container")))).
-    flatMap(_ => client.createCi(Command("Applications/cmdapp1/v1/cmd1", "sleep 10")))
+  futures :+= client.createCi(Application("Applications/cmdapp0")).
+    flatMap(_ => client.createCi(DeploymentPackage("Applications/cmdapp0/0", Seq("parallel-by-container")))).
+    flatMap(_ => client.createCi(Command("Applications/cmdapp0/0/cmd0", "sleep 10")))
 
   // create packages for copyFilesScenario
-  val nrOfApps = 2
+  val nrOfApps = 1
   val nrOfVersionsPerApp = 2
-  val nrOfArtifactsPerVersion = 10
+  val nrOfArtifactsPerVersion = 1
   val nrOfMbPerArtifacts = 100
   futures ++= Range(0, nrOfApps).flatMap(appNr => createNVersions(s"filesapp$appNr"))
 
