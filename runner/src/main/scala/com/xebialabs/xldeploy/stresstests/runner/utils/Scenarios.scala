@@ -20,7 +20,7 @@ object Scenarios {
     repeat(1) {
         exec(Deployment.prepareInitialDeployment("Applications/cmdapp0/0", "Environments/env${userNr}")).
         exec(Deployment.executeDeployment).
-        exec(Deployment.prepareUndeployment("Environments/env${userNr}/cmdapp1")).
+        exec(Deployment.prepareUndeployment("Environments/env${userNr}/cmdapp0")).
         exec(Deployment.executeDeployment)
     }
 
