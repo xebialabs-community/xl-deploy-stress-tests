@@ -24,12 +24,12 @@ object Scenarios {
         exec(Deployment.executeDeployment)
     }
 
-  val copyFilesScenario = scenario("Copy files").exec(
+  def copyFilesScenario(nrOfMb: Int) = scenario("Copy files").exec(
     _.set("userNr", userNumber.getAndIncrement())).
     repeat(1) {
-      exec(Deployment.prepareInitialDeployment("Applications/filesapp0/0", "Environments/env${userNr}")).
+      exec(Deployment.prepareInitialDeployment(s"Applications/files${nrOfMb}app0/0", "Environments/env${userNr}")).
         exec(Deployment.executeDeployment).
-        exec(Deployment.prepareUndeployment("Environments/env${userNr}/filesapp0")).
+        exec(Deployment.prepareUndeployment(s"Environments/env$${userNr}/files${nrOfMb}app0")).
         exec(Deployment.executeDeployment)
     }
 

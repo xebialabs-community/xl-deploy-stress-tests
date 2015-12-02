@@ -35,7 +35,7 @@ object Main extends App with LazyLogging {
   }
 
   // create environments for runCommandsScenario
-  val nrOfEnvs = 10
+  val nrOfEnvs = 40
   val nrOfHostsPerEnv = 10
   futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Directory(s"Infrastructure/env${envNr}")))
   futures ++= Range(0, nrOfEnvs).flatMap(envNr => createNHostsIn(nrOfHostsPerEnv, s"Infrastructure/env${envNr}"))
@@ -55,11 +55,11 @@ object Main extends App with LazyLogging {
   val nrOfApps = 1
   val nrOfVersionsPerApp = 2
   val nrOfArtifactsPerVersion = 1
-  val nrOfMbPerArtifacts = 100
-  futures ++= Range(0, nrOfApps).flatMap(appNr => createNVersions(s"filesapp$appNr"))
+  val nrOfMbPerArtifacts = Array(100, 200, 400, 800)
+  futures ++= nrOfMbPerArtifacts.flatMap(nrOfMb => 0 until nrOfApps flatMap(appNr => createNVersions(s"files${nrOfMb}app$appNr", nrOfMb)))
 
-  def createNVersions(application: String) = {
-    Range(0, nrOfVersionsPerApp).map(versionNr => client.generateAndUploadPackage(application, s"$versionNr", nrOfArtifactsPerVersion, nrOfMbPerArtifacts))
+  def createNVersions(application: String, nrOfMb: Int) = {
+    Range(0, nrOfVersionsPerApp).map(versionNr => client.generateAndUploadPackage(application, s"$versionNr", nrOfArtifactsPerVersion, nrOfMb))
   }
 
   val allFutures = Future.sequence(futures)
