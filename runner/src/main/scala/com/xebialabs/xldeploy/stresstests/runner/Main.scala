@@ -16,12 +16,12 @@ object Main extends App with LazyLogging {
 
   logger.info("Starting XL Deploy stress tests suite.")
 
-  private val simulationProvValue = Option(System.getProperty(simulationPropKey)).getOrElse(classOf[CopyFiles400Simulation].getCanonicalName)
+  private val simulationProvValue = Option(System.getProperty(simulationPropKey)).getOrElse("CopyFiles400Simulation")
 
   private val simulationsToRun = simulationProvValue.split(",").map(simulationClassByName)
 
   private def simulationClassByName(className: String): Class[_] = {
-    Try(Class.forName(className)) match {
+    Try(Class.forName("com.xebialabs.xldeploy.stresstests.runner." + className)) match {
       case Success(c) => c
       case Failure(e) =>
         logger.error(s"Can not find simulation $className.")

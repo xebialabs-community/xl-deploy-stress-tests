@@ -44,4 +44,49 @@ It uses the following optional parameters :
 Example :
 
     ./gradlew :data-generator:run -PbaseUrl=http://localhost:4516/deployit -Pusername=admin -Ppassword=admin -PnrOfMbPerArtifacts=100,200
+    
+# Runner
+
+The runner should **not** be run against a production environment.
+
+It should be run against an XL Deploy Server on which the data-generator has already been run.
+
+## Running
+
+The application can be started with the following command :
+
+    ./gradlew :runner:run [parameters]
+
+or on windows
+
+    gradlew :runner:run [parameters]
+
+It uses the following optional parameters :
+
+- **Server URL**: The URL of the XL Deploy server instance
+    - Syntax : `-PbaseUrl=http://url.to.server:4516/deployit`
+    - The default value is `http://xldstressM.xebialabs.com:4516/deployit`
+- **Username**: The username that will be used to connect to the server instance. This username needs "admin" permissions in order to view all data
+    - Syntax : `-Pusername=admin`
+    - The default value is `admin`
+- **Password**: The password of the user account that will be used to connect to the server instance.
+    - Syntax : `-Ppassword=password`
+    - The default value is `admin`
+- **Simulation**: The simulations to execute (separated by a comma). If it is empty then `CopyFiles400Simulation` will run.
+    - Syntax :
+        - `-Psimulation=CopyFiles400Simulation` or
+        - `-Psimulation=RunCommandsSimulation,ReadRepositorySimulation`
+    - The possible values are :
+        - `CopyFiles100Simulation` : several development teams commit code which triggers new releases. Each teams consists of ~10 developers.
+        - `CopyFiles200Simulation` : several ops people are working with XL Release
+        - `CopyFiles400Simulation` : several release managers are working with XL Release
+        - `CopyFiles800Simulation` : A simulation which combines several roles of people working with XL Release in one realistic usage scenario.
+        - `ReadRepositorySimulation` : A simulation which combines several roles of people working with XL Release in one realistic usage scenario.
+        - `RunCommandsSimulation` : A simulation which combines several roles of people working with XL Release in one realistic usage scenario.
+    - The default value is `CopyFiles400Simulation`
+
+Example:
+
+    ./gradlew :runner:run -PbaseUrl=http://localhost:4516/deployit -Psimulation=CopyFiles400Simulation -Pusername=admin -Ppassword=admin
+
 
