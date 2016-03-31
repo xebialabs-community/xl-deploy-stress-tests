@@ -23,6 +23,6 @@ package object domain {
 
   case class Environment(id: String, members: Seq[CiRef], dictionaries: Seq[CiRef], `type`: String = "udm.Environment") extends Ci
 
-  case class SshHost(id: String, os: String, connectionType: String, address: String, username: String, password: String, privateKeyFile: String, `type`: String = "overthere.SshHost") extends Ci
+  case class SshHost(var id: String, os: String, connectionType: String, address: String, username: String, password: String, privateKeyFile: String, `type`: String = "overthere.SshHost") extends Ci
 
 }

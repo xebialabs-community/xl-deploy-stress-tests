@@ -9,6 +9,7 @@ import spray.http.HttpResponse
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import scala.collection.JavaConversions._
 import scala.util.Failure
 
 object Main extends App with LazyLogging {
@@ -36,15 +37,22 @@ object Main extends App with LazyLogging {
 
   // create environments for runCommandsScenario
   val nrOfEnvs = 40
-  val nrOfHostsPerEnv = 10
+  val hostConfig = config.getConfigList("xld.data-generator.hosts")
+  val hostList = hostConfig.map(host => SshHost(host.getString("id"), host.getString("os"), host.getString("connectionType"), host.getString("address"), host.getString("username"), host.getString("password"), host.getString("privateKeyFile"))).toList
   futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Directory(s"Infrastructure/env${envNr}")))
-  futures ++= Range(0, nrOfEnvs).flatMap(envNr => createNHostsIn(nrOfHostsPerEnv, s"Infrastructure/env${envNr}"))
+  futures ++= Range(0, nrOfEnvs).flatMap(envNr => createNHostsIn(hostList, s"Infrastructure/env${envNr}"))
 
-  def createNHostsIn(n: Int, dirId: String) = {
-    Range(0, n).map(hostNr => client.createCi(SshHost(s"${dirId}/host${hostNr}", "UNIX", "SCP", s"xldstress${hostNr}.xebialabs.com", "xldstress", "", "/home/xldstress/.ssh/id_rsa")))
+  def createNHostsIn(hostList: List[SshHost], dirId: String) = {
+    for ((host, i) <- hostList.view.zipWithIndex) {
+      host.id = s"$dirId/host$i"
+    }
+    hostList.indices.map(hostNr =>
+      client.createCi(hostList(hostNr))
+    )
+
   }
 
-  futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Environment(s"Environments/env${envNr}", Range(0, nrOfHostsPerEnv).map(hostNr => CiRef(s"Infrastructure/env${envNr}/host${hostNr}", "overthere.SshHost")), Seq())))
+  futures ++= Range(0, nrOfEnvs).map(envNr => client.createCi(Environment(s"Environments/env${envNr}", Range(0, hostList.size).map(hostNr => CiRef(s"Infrastructure/env${envNr}/host${hostNr}", "overthere.SshHost")), Seq())))
 
   // create package for runCommandsScenario
   futures :+= client.createCi(Application("Applications/cmdapp0")).
@@ -55,7 +63,7 @@ object Main extends App with LazyLogging {
   val nrOfApps = 1
   val nrOfVersionsPerApp = 2
   val nrOfArtifactsPerVersion = 1
-  val nrOfMbPerArtifacts = Array(100, 200, 400, 800)
+  val nrOfMbPerArtifacts = config.getString("xld.data-generator.nrOfMbPerArtifacts").split(",").map(_.toInt)
   futures ++= nrOfMbPerArtifacts.flatMap(nrOfMb => 0 until nrOfApps flatMap(appNr => createNVersions(s"files${nrOfMb}app$appNr", nrOfMb)))
 
   def createNVersions(application: String, nrOfMb: Int) = {
