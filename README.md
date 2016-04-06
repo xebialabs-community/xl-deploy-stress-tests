@@ -29,7 +29,7 @@ or on windows
 It uses the following optional parameters :
 
 - **Base URL**: The URL of the XL Deploy server instance
-    - Syntax : `-PbaseUrl=http://url.to.server:4516/deployitoo`
+    - Syntax : `-PbaseUrl=http://url.to.server:4516/deployit`
     - The default value iso `http://xldstressM.xebialabs.com:4516/deployit`
 - **Username**: The username that will be used to connect to the server instance. This username needs "admin" permissions in order to populate data
     - Syntax : `-Pusername=admin`
@@ -77,12 +77,12 @@ It uses the following optional parameters :
         - `-Psimulation=CopyFiles400Simulation` or
         - `-Psimulation=RunCommandsSimulation,ReadRepositorySimulation`
     - The possible values are :
-        - `CopyFiles100Simulation` : several development teams commit code which triggers new releases. Each teams consists of ~10 developers.
-        - `CopyFiles200Simulation` : several ops people are working with XL Release
-        - `CopyFiles400Simulation` : several release managers are working with XL Release
-        - `CopyFiles800Simulation` : A simulation which combines several roles of people working with XL Release in one realistic usage scenario.
-        - `ReadRepositorySimulation` : A simulation which combines several roles of people working with XL Release in one realistic usage scenario.
-        - `RunCommandsSimulation` : A simulation which combines several roles of people working with XL Release in one realistic usage scenario.
+        - `CopyFiles100Simulation`
+        - `CopyFiles200Simulation`
+        - `CopyFiles400Simulation`
+        - `CopyFiles800Simulation`
+        - `ReadRepositorySimulation`
+        - `RunCommandsSimulation`
     - The default value is `CopyFiles400Simulation`
 
 Example:
