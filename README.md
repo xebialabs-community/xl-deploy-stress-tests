@@ -5,7 +5,7 @@ There are two projects in this repository :
 - Data Generator : an application that populates an XL Deploy instance with Applications, Environments and Infrastructure.
 - Runner : an application that connects to an XL Deploy instance and performs stress tests.
 
-# CI status #
+# CI status #
 
 [![Build Status][xl-deploy-stress-tests-travis-image] ][xl-deploy-stress-tests-travis-url]
 [![Codacy][xl-deploy-stress-tests-codacy-image] ][xl-deploy-stress-tests-codacy-url]
