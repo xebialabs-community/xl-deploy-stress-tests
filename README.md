@@ -2,8 +2,8 @@
 
 There are two projects in this repository :
 
-- Data Generator : an application that populates an XL Release instance with active, completed releases and templates.
-- Runner : an application that connects to an XL Release instance and performs stress tests.
+- Data Generator : an application that populates an XL Deploy instance with Applications, Environments and Infrastructure.
+- Runner : an application that connects to an XL Deploy instance and performs stress tests.
 
 ## Requirements
 
