@@ -5,6 +5,22 @@ There are two projects in this repository :
 - Data Generator : an application that populates an XL Deploy instance with Applications, Environments and Infrastructure.
 - Runner : an application that connects to an XL Deploy instance and performs stress tests.
 
+# CI status #
+
+[![Build Status][xl-deploy-stress-tests-travis-image] ][xl-deploy-stress-tests-travis-url]
+[![Codacy][xl-deploy-stress-tests-codacy-image] ][xl-deploy-stress-tests-codacy-url]
+[![Code Climate][xl-deploy-stress-tests-code-climate-image] ][xl-deploy-stress-tests-code-climate-url]
+
+
+[xl-deploy-stress-tests-travis-image]: https://travis-ci.org/xebialabs-community/xl-deploy-stress-tests.svg?branch=master
+[xl-deploy-stress-tests-travis-url]: https://travis-ci.org/xebialabs-community/xl-deploy-stress-tests
+[xl-deploy-stress-tests-codacy-image]: https://api.codacy.com/project/badge/Grade/f97410a1c91d4af4be5bbc5add23a17e
+[xl-deploy-stress-tests-codacy-url]: https://www.codacy.com/app/rvanstone/xl-deploy-stress-tests
+[xl-deploy-stress-testscode-climate-image]: https://codeclimate.com/github/xebialabs-community/xl-deploy-stress-tests/badges/gpa.svg
+[xl-deploy-stress-testscode-climate-url]: https://codeclimate.com/github/xebialabs-community/xl-deploy-stress-tests
+
+
+
 ## Requirements
 
 - Java 8 SDK
