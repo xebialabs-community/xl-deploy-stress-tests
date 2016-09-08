@@ -42,6 +42,8 @@ or on windows
 
     gradlew :data-generator:run [parameters]
 
+In case you want to change the `Infrastructure` host, you can do this in the following file [application.conf](https://github.com/xebialabs-community/xl-deploy-stress-tests/blob/master/data-generator/src/main/resources/application.conf)
+
 It uses the following optional parameters :
 
 - **Base URL**: The URL of the XL Deploy server instance
