@@ -16,8 +16,8 @@ There are two projects in this repository :
 [xl-deploy-stress-tests-travis-url]: https://travis-ci.org/xebialabs-community/xl-deploy-stress-tests
 [xl-deploy-stress-tests-codacy-image]: https://api.codacy.com/project/badge/Grade/f97410a1c91d4af4be5bbc5add23a17e
 [xl-deploy-stress-tests-codacy-url]: https://www.codacy.com/app/rvanstone/xl-deploy-stress-tests
-[xl-deploy-stress-testscode-climate-image]: https://codeclimate.com/github/xebialabs-community/xl-deploy-stress-tests/badges/gpa.svg
-[xl-deploy-stress-testscode-climate-url]: https://codeclimate.com/github/xebialabs-community/xl-deploy-stress-tests
+[xl-deploy-stress-tests-code-climate-image]: https://codeclimate.com/github/xebialabs-community/xl-deploy-stress-tests/badges/gpa.svg
+[xl-deploy-stress-tests-code-climate-url]: https://codeclimate.com/github/xebialabs-community/xl-deploy-stress-tests
 
 
 
