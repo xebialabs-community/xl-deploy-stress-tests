@@ -1,8 +1,8 @@
 package com.xebialabs.xldeploy.stresstests.runner
 
+import com.xebialabs.xldeploy.stresstests.runner.config.RunnerConfig
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder
-import com.xebialabs.xldeploy.stresstests.runner.config.RunnerConfig
 
 import scala.language.postfixOps
 

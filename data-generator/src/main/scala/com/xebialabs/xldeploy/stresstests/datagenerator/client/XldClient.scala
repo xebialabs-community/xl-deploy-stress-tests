@@ -70,6 +70,9 @@ class XldClient(apiUrl: String, username: String = "admin", password: String = "
   def removeCi(id: String): Future[HttpResponse] =
     strictPipeline(Delete(s"$apiUrl/repository/ci/$id"))
 
+  def generateArchiveData = ???
+  // access.2017-10-06.log:2017-10-06 11:35:52.802 [c.xebialabs.deployit.AccessLogFilter]   2878ms 400 - 10.0.3.114 -  "POST /deployit/generate/ReportsPerformanceSet/30/100" - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36 OPR/47.0.2631.83
+
   def generateAndUploadPackage(applicationName: String, version: String, nrOfArtifacts: Int, nrOfMbPerArtifact: Int): Future[HttpResponse] = {
     val packageName = s"$applicationName-$version"
 

@@ -101,6 +101,7 @@ It uses the following optional parameters :
         - `CopyFiles800Simulation`
         - `ReadRepositorySimulation`
         - `RunCommandsSimulation`
+        - `DashboardReportSimulation`
     - The default value is `CopyFiles400Simulation`
 
 Example:

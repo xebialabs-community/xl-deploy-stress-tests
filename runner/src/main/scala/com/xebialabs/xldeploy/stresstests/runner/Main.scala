@@ -7,7 +7,7 @@ import io.gatling.core.scenario.Simulation
 import scala.util.{Failure, Success, Try}
 
 /**
- * This com.xebialabs.xldeploy.stresstests.runner allows to find and execute simulations from the same classpath as the com.xebialabs.xldeploy.stresstests.runner itself.
+ * This runner allows to find and execute simulations from the same classpath as the runner itself.
  * Simplifies build logic.
  */
 object Main extends App with LazyLogging {
