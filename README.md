@@ -4,6 +4,7 @@ There are two projects in this repository :
 
 - Data Generator : an application that populates an XL Deploy instance with Applications, Environments and Infrastructure.
 - Runner : an application that connects to an XL Deploy instance and performs stress tests.
+- Selenium Browser: an application that connects to XL Deploy and performs web browser automation.
 
 # CI status #
 
@@ -109,3 +110,50 @@ Example:
     ./gradlew :runner:run -PbaseUrl=http://localhost:4516/deployit -Psimulation=CopyFiles400Simulation -Pusername=admin -Ppassword=admin
 
 
+# Selenium Browser (Web Browser Automation Tests)
+
+The Selenium browser should **not** be run against a production environment.
+
+It should be run against an XL Deploy Server on which the data-generator has already been run. 
+The best is however to have more diverse and at scale data, thus a copy of obfuscated production data.
+The infrastructure for obfuscated data at scale is already available via [DEPL-13504](https://xebialabs.atlassian.net/browse/DEPL-13504).
+
+Selenium browser tests use XPath expressions that have been tested against frontend of XL Deploy version 8.1 and higher.
+
+## Running
+
+Prior to running the Selenium browser module, you should install [ChromeDriver](http://chromedriver.chromium.org/home).
+On macOS, open a new terminal window and type: 
+
+```bash 
+brew install chromedriver
+```
+
+The application can be started with the following command :
+
+    ./gradlew :selenium-browser:run [parameters]
+
+or on windows
+
+    gradlew :selenium-browser:run [parameters]
+    
+It uses the following optional parameters :
+
+- **Server URL**: The URL of the XL Deploy server instance
+    - Syntax : `-PbaseUrl=http://url.to.server:4516/#/login`
+    - The default value is `http://localhost:4516/#/login`
+- **Username**: The username that will be used to connect to the server instance. This username needs "admin" permissions in order to view all data
+    - Syntax : `-Pusername=user1`
+    - The default value is `user1`, see docs for [DEPL-13504](https://xebialabs.atlassian.net/browse/DEPL-13504)
+- **Password**: The password of the user account that will be used to connect to the server instance.
+    - Syntax : `-Ppassword=password`
+    - The default value is `password`, see docs for [DEPL-13504](https://xebialabs.atlassian.net/browse/DEPL-13504)
+- **webdriver.chrome.driver**: The full OS path to the [ChromeDriver](http://chromedriver.chromium.org/home) executable installation.
+    - Syntax :`-Pwebdriver.chrome.driver=/usr/local/bin/chromedriver` 
+    - The default value is `/usr/local/bin/chromedriver`
+
+Example:
+
+    ./gradlew :selenium-browser:run -PbaseUrl=http://localhost:4516/#/login -Pwebdriver.chrome.driver=/usr/local/bin/chromedriver -Pusername=user1 -Ppassword=password
+
+    
