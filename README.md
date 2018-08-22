@@ -143,17 +143,26 @@ It uses the following optional parameters :
     - Syntax : `-PbaseUrl=http://url.to.server:4516/#/login`
     - The default value is `http://localhost:4516/#/login`
 - **Username**: The username that will be used to connect to the server instance. This username needs "admin" permissions in order to view all data
-    - Syntax : `-Pusername=user1`
-    - The default value is `user1`, see docs for [DEPL-13504](https://xebialabs.atlassian.net/browse/DEPL-13504)
+    - Syntax : `-Pusername=admin`
+    - The default value is `admin`
 - **Password**: The password of the user account that will be used to connect to the server instance.
-    - Syntax : `-Ppassword=password`
-    - The default value is `password`, see docs for [DEPL-13504](https://xebialabs.atlassian.net/browse/DEPL-13504)
+    - Syntax : `-Ppassword=admin`
+    - The default value is `admin`
 - **webdriver.chrome.driver**: The full OS path to the [ChromeDriver](http://chromedriver.chromium.org/home) executable installation.
     - Syntax :`-Pwebdriver.chrome.driver=/usr/local/bin/chromedriver` 
     - The default value is `/usr/local/bin/chromedriver`
+- **Simulation**: The simulations to execute (separated by a comma). If it is empty then `Login` will run.
+       - Syntax :
+           - `-Psimulation=Login` or
+           - `-Psimulation=Login,ImportApplication,DeployApplication`
+       - The possible values are :
+           - `Login`
+           - `ImportApplication`
+           - `DeployApplication`
+       - The default value, as it's a pre-requisite also for each scenario, is `Login`    
 
 Example:
 
-    ./gradlew :selenium-browser:run -PbaseUrl=http://localhost:4516/#/login -Pwebdriver.chrome.driver=/usr/local/bin/chromedriver -Pusername=user1 -Ppassword=password
+    ./gradlew :selenium-browser:run -PbaseUrl=http://localhost:4516/#/login -Pwebdriver.chrome.driver=/usr/local/bin/chromedriver -Psimulation=Login,PackageUpload -Pusername=user1 -Ppassword=password
 
     
