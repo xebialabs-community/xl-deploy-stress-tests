@@ -15,8 +15,7 @@ public class Login extends SimulationBase {
     // Default values
     private static final String XL_DEPLOY_LOCAL_LOGIN = "http://localhost:4516/#/login";
     private static final String WEBDRIVER_CHROME_DRIVER_MACOS = "/usr/local/bin/chromedriver";
-    private static final String DEFAULT_USERNAME = "admin";
-    private static final String DEFAULT_PASS = "admin";
+    private static final String DEFAULT_CREDENTIALS = "admin";
 
     @Override
     public void simulate(WebDriver driver) {
@@ -27,9 +26,9 @@ public class Login extends SimulationBase {
             System.setProperty(WEBDRIVER_CHROME_DRIVER_KEY, WEBDRIVER_CHROME_DRIVER_MACOS);
         }
         String username = (System.getProperty(USERNAME_KEY) == null || System.getProperty(USERNAME_KEY).isEmpty())
-                ? DEFAULT_USERNAME : System.getProperty(USERNAME_KEY);
+                ? DEFAULT_CREDENTIALS : System.getProperty(USERNAME_KEY);
         String pass = (System.getProperty(PASS_KEY) == null || System.getProperty(PASS_KEY).isEmpty())
-                ? DEFAULT_PASS : System.getProperty(PASS_KEY);
+                ? DEFAULT_CREDENTIALS : System.getProperty(PASS_KEY);
 
         // launch ChromeDriver and direct it to the XL Deploy Login URL
         driver.get(loginUrl);
