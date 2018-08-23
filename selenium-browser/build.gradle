@@ -12,6 +12,7 @@ ext {
 dependencies {
   // Selenium Java Client Driver
   compile "org.seleniumhq.selenium:selenium-java:${SELENIUM_VERSION}"
+  compile "junit:junit:4.12"
 }
 
 def applicationJvmArgs = []
