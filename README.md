@@ -148,18 +148,6 @@ It uses the following optional parameters :
 - **Password**: The password of the user account that will be used to connect to the server instance.
     - Syntax : `-Ppassword=admin`
     - The default value is `admin`
-- **webdriver.chrome.driver**: The full OS path to the [ChromeDriver](http://chromedriver.chromium.org/home) executable installation.
-    - Syntax :`-Pwebdriver.chrome.driver=/usr/local/bin/chromedriver` 
-    - The default value is `/usr/local/bin/chromedriver`
-- **Simulation**: The simulations to execute (separated by a comma). If it is empty then `Login` will run.
-       - Syntax :
-           - `-Psimulation=Login` or
-           - `-Psimulation=Login,ImportApplication,DeployApplication`
-       - The possible values are :
-           - `Login`
-           - `ImportApplication`
-           - `DeployApplication`
-       - The default value, as it's a pre-requisite also for each scenario, is `Login`    
 
 Example:
 

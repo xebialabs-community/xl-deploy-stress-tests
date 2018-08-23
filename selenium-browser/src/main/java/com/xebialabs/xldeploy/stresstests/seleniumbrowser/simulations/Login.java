@@ -10,23 +10,17 @@ public class Login extends SimulationBase {
 
     // Optional parameter key names
     private static final String LOGIN_URL_KEY = "baseUrl";
-    private static final String WEBDRIVER_CHROME_DRIVER_KEY = "webdriver.chrome.driver";
     private static final String USERNAME_KEY = "username";
     private static final String PASS_KEY = "password";
 
     // Default values
     private static final String XL_DEPLOY_LOCAL_LOGIN = "http://localhost:4516/#/login";
-    private static final String WEBDRIVER_CHROME_DRIVER = "/usr/local/bin/chromedriver";
     private static final String DEFAULT_CREDENTIALS = "admin";
 
     @Override
     public void simulate(ChromeDriver driver) {
         String loginUrl = (System.getProperty(LOGIN_URL_KEY) == null || System.getProperty(LOGIN_URL_KEY).isEmpty())
                 ? XL_DEPLOY_LOCAL_LOGIN : System.getProperty(LOGIN_URL_KEY);
-        if (System.getProperty(WEBDRIVER_CHROME_DRIVER_KEY) == null
-                || System.getProperty(WEBDRIVER_CHROME_DRIVER_KEY).isEmpty()) {
-            System.setProperty(WEBDRIVER_CHROME_DRIVER_KEY, WEBDRIVER_CHROME_DRIVER);
-        }
         String username = (System.getProperty(USERNAME_KEY) == null || System.getProperty(USERNAME_KEY).isEmpty())
                 ? DEFAULT_CREDENTIALS : System.getProperty(USERNAME_KEY);
         String pass = (System.getProperty(PASS_KEY) == null || System.getProperty(PASS_KEY).isEmpty())
