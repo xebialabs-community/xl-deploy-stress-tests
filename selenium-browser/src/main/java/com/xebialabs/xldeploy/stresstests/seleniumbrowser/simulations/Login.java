@@ -40,12 +40,17 @@ public class Login extends SimulationBase {
         driver.findElement(By.xpath("//form//input[@name='password']")).sendKeys(pass);
         driver.findElement(By.xpath("//form//button[@type='submit']")).click();
 
-        // assertions
+        performAssertion(driver);
+    }
+
+    /** Perform assertions regarding landing page after login. */
+    @Override
+    protected void performAssertion(ChromeDriver driver) {
         WebElement loggedInAs = driver.findElementByCssSelector("span.logged-in-as");
         Assert.assertNotNull(loggedInAs);
 
         WebElement loggedInAsUsername = driver.findElementByCssSelector("span.logged-in-as span.username");
         Assert.assertNotNull(loggedInAsUsername);
-        Assert.assertEquals(loggedInAsUsername.getText(), username);
     }
+
 }

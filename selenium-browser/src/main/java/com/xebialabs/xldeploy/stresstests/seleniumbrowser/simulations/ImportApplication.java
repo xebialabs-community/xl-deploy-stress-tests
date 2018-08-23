@@ -34,7 +34,12 @@ public class ImportApplication extends SimulationBase {
         input.sendKeys(testPackage.getAbsolutePath());
         driver.findElementByXPath("//button[@class='xl-button xl-primary']").click();
 
-        // assert
+        performAssertion(driver);
+    }
+
+    /** Perform assertions on application package import. */
+    @Override
+    protected void performAssertion(ChromeDriver driver) {
         WebElement progressBarSuccess = driver.findElementByCssSelector("div.progress-status.success");
         Assert.assertNotNull(progressBarSuccess);
 
