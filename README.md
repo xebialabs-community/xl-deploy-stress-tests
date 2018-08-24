@@ -122,13 +122,6 @@ Selenium browser tests use XPath expressions that have been tested against front
 
 ## Running
 
-Prior to running the Selenium browser module, you should install [ChromeDriver](http://chromedriver.chromium.org/home).
-On macOS, open a new terminal window and type: 
-
-```bash 
-brew install chromedriver
-```
-
 The application can be started with the following command :
 
     ./gradlew :selenium-browser:run [parameters]
@@ -151,6 +144,6 @@ It uses the following optional parameters :
 
 Example:
 
-    ./gradlew :selenium-browser:run -PbaseUrl=http://localhost:4516/#/login -Pwebdriver.chrome.driver=/usr/local/bin/chromedriver -Psimulation=Login,PackageUpload -Pusername=user1 -Ppassword=password
+    ./gradlew :selenium-browser:run -PbaseUrl=http://localhost:4516/#/login -Pusername=admin -Ppassword=admin
 
     
