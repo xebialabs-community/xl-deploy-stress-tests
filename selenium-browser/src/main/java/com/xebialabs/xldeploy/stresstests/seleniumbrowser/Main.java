@@ -13,14 +13,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
-
     private static final String WEBDRIVER_CHROME_DRIVER_KEY = "webdriver.chrome.driver";
     private static final String WEBDRIVER_CHROME_DRIVER = "chromedriver";
     private static final String TEMP_DIR = "java.io.tmpdir";
+    private static final String OS_NAME = "os.name";
     private static final String OS_MAC_DRIVER_KEY = "-mac";
     private static final String OS_LINUX_DRIVER_KEY = "-linux";
     private static final String OS_WIN_DRIVER_KEY = ".exe";
-
 
     public static void main(String[] args) {
         String os = getOSDriverKey();
@@ -61,14 +60,13 @@ public class Main {
         }
     }
 
-    private static String getOSDriverKey(){
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.indexOf("win") >= 0) {
+    private static String getOSDriverKey() {
+        String os = System.getProperty(OS_NAME).toLowerCase();
+        if (os.contains("win")) {
             return OS_WIN_DRIVER_KEY;
-        } else if (os.indexOf("mac") >= 0) {
+        } else if (os.contains("mac")) {
             return OS_MAC_DRIVER_KEY;
-        } else if (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") > 0
-                || os.indexOf("sunos") >= 0) {
+        } else if (os.contains("nix") || os.contains("nux") || os.contains("aix") || os.contains("sunos")) {
             return OS_LINUX_DRIVER_KEY;
         } else {
             throw new RuntimeException("OS type unsupported");
