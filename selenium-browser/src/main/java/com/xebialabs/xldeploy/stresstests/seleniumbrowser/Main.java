@@ -80,7 +80,7 @@ public class Main {
             return OS_WIN_DRIVER_KEY;
         } else if (os.contains(MAC_OS)) {
             return OS_MAC_DRIVER_KEY;
-        } else if (os.contains("LINUX_OS") || os.contains(NIX_OS) || os.contains(IBM_AIX_OS) || os.contains(SOLARIS_OS)) {
+        } else if (os.contains(LINUX_OS) || os.contains(NIX_OS) || os.contains(IBM_AIX_OS) || os.contains(SOLARIS_OS)) {
             return OS_LINUX_DRIVER_KEY;
         } else {
             throw new IllegalArgumentException(OS_NOT_SUPPORTED_ERR_MSG);
