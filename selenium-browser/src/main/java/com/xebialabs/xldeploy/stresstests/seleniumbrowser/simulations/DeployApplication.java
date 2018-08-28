@@ -26,11 +26,11 @@ public class DeployApplication extends SimulationBase {
         driver.findElement(By.xpath("//li[@data-path='new']")).click();
         driver.findElement(By.xpath("//li[@data-path='new->overthere']")).click();
         driver.findElementByXPath("//a[@class='localhost']").click();
-        driver.findElement(By.xpath("//a")).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//form[@class='static-properties-form']")));
 
 
-        driver.findElement(By.xpath("//form[@class='static-properties-form']//input[@name='name']")).sendKeys("Selenium");
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//form//input[@name='name']")));
+        driver.findElementsByName("name").get(0).sendKeys("Selenium");
+
         String os = getOSDriverKey();
         driver.findElementByXPath("//div[contains(@class, 'xl-category-content') and text()='Operating system the host runs (Property: os)']").click();
         if (SimulationBase.OS_LINUX_DRIVER_KEY.equals(os) || SimulationBase.OS_MAC_DRIVER_KEY.equals(os)) {
@@ -43,11 +43,11 @@ public class DeployApplication extends SimulationBase {
 
         LOGGER.info("Create environment");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@data-id='Environments']/div/span")));
-        driver.findElement(By.xpath("//*[@data-id='Environments']/div/span")).click();
-        driver.findElement(By.xpath("//*[@data-id='Environments']/div/i[@data-id='Environments']")).click();
-        driver.findElement(By.xpath("//li[@data-path='new']")).click();
-        driver.findElement(By.xpath("//span[contains(@class, 'menu-item-label') and text()='Environment']")).click();
-        driver.findElement(By.xpath("//input[@name='name']")).sendKeys("SeleniumEnv");
+        driver.findElementByXPath("//*[@data-id='Environments']/div/span").click();
+        driver.findElementByXPath("//*[@data-id='Environments']/div/i[@data-id='Environments']").click();
+        driver.findElementByXPath("//li[@data-path='new']").click();
+        driver.findElementByXPath("//span[contains(@class, 'menu-item-label') and text()='Environment']").click();
+        driver.findElementByXPath("//input[@name='name']").sendKeys("SeleniumEnv");
         LOGGER.info("Link infrastructure to environment");
         driver.findElementByXPath("//div[contains(@class, 'xl-components-input') and text()='The infrastructure components of this Environment (Property: members)']/input")
                 .sendKeys("Infrastructure/Selenium");
@@ -60,14 +60,14 @@ public class DeployApplication extends SimulationBase {
         searchApp.sendKeys("Applications/test-dar/1.0");
         searchApp.sendKeys(Keys.RETURN);
         driver.findElementByXPath("//span[text()='Applications/test-dar/1.0']").click();
-        driver.findElement(By.xpath("//i[@data-id='Applications/test-dar/1.0']")).click();
-        driver.findElement(By.xpath("//li[@data-path='deploy']/span")).click();
+        driver.findElementByXPath("//i[@data-id='Applications/test-dar/1.0']").click();
+        driver.findElementByXPath("//li[@data-path='deploy']/span").click();
 
         LOGGER.info("Search environment to deploy to package");
-        WebElement searchEnv = driver.findElement(By.xpath("//div[contains(@class, 'main-content')]/span/input[@type='search']"));
+        WebElement searchEnv = driver.findElementByXPath("//div[contains(@class, 'main-content')]/span/input[@type='search']");
         searchEnv.sendKeys("SeleniumEnv");
         searchApp.sendKeys(Keys.RETURN);
-        driver.findElement(By.xpath("//li[@data-id='Environments/SeleniumEnv']/div/input[@value='Environments/SeleniumEnv']")).click();
+        driver.findElementByXPath("//li[@data-id='Environments/SeleniumEnv']/div/input[@value='Environments/SeleniumEnv']").click();
 
         LOGGER.info("Click Continue button");
         driver.findElementByXPath("//button[@class='xl-button xl-primary continue-btn']").click();
