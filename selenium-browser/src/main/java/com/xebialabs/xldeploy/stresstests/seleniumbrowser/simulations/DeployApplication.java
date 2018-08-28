@@ -27,17 +27,14 @@ public class DeployApplication extends SimulationBase {
         driver.findElement(By.xpath("//li[@data-path='new->overthere']")).click();
         driver.findElementByXPath("//a[@class='localhost']").click();
 
-
+        LOGGER.info("Set HTML form required fields");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//form//input[@name='name']")));
         driver.findElementsByName("name").get(0).sendKeys("Selenium");
-
         String os = getOSDriverKey();
-        driver.findElementByXPath("//div[contains(@class, 'xl-category-content') and text()='Operating system the host runs (Property: os)']").click();
-        if (SimulationBase.OS_LINUX_DRIVER_KEY.equals(os) || SimulationBase.OS_MAC_DRIVER_KEY.equals(os)) {
-            driver.findElementByXPath("//div[contains(@title, 'UNIX')]").click();
-        } else {
-            driver.findElementByXPath("//div[contains(@title, 'WINDOWS')]").click();
-        }
+        String osOption = (SimulationBase.OS_LINUX_DRIVER_KEY.equals(os) || SimulationBase.OS_MAC_DRIVER_KEY.equals(os))
+                ? "UNIX" : "WINDOWS";
+        driver.executeScript("document.getElementsByClassName('xl-autocomplete-container')[0].innerText = '" + osOption + "';");
+
         LOGGER.info("Save infrastructure");
         driver.findElementByXPath("//button[@class='xl-button xl-primary']").click();
 

@@ -30,9 +30,9 @@ public class Login extends SimulationBase {
         driver.get(loginUrl);
 
         //login to XL-Deploy
-        driver.findElement(By.xpath("//form//input[@name='username']")).sendKeys(username);
-        driver.findElement(By.xpath("//form//input[@name='password']")).sendKeys(pass);
-        driver.findElement(By.xpath("//form//button[@type='submit']")).click();
+        driver.findElementByXPath("//form//input[@name='username']").sendKeys(username);
+        driver.findElementByXPath("//form//input[@name='password']").sendKeys(pass);
+        driver.findElementByXPath("//form//button[@type='submit']").click();
 
         performAssertion(driver);
     }
