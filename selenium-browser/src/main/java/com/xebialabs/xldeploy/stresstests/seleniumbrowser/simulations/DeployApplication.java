@@ -33,51 +33,61 @@ public class DeployApplication extends SimulationBase {
         String os = getOSDriverKey();
         String osOption = (SimulationBase.OS_LINUX_DRIVER_KEY.equals(os) || SimulationBase.OS_MAC_DRIVER_KEY.equals(os))
                 ? "UNIX" : "WINDOWS";
-        driver.executeScript("document.getElementsByClassName('xl-autocomplete-container')[0].innerText = '" + osOption + "';");
+        driver.findElementByXPath("(//div[@class='xl-autocomplete-container'])[1]//input").sendKeys(osOption);
 
         LOGGER.info("Save infrastructure");
-        driver.findElementByXPath("//button[@class='xl-button xl-primary']").click();
+        driver.findElementByXPath("(//div[@class='dip-view-body'])[1]/div/button[1]").click();
 
-        LOGGER.info("Create environment");
+
+        LOGGER.info("Create environment, open new tab");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@data-id='Environments']/div/span")));
         driver.findElementByXPath("//*[@data-id='Environments']/div/span").click();
         driver.findElementByXPath("//*[@data-id='Environments']/div/i[@data-id='Environments']").click();
         driver.findElementByXPath("//li[@data-path='new']").click();
         driver.findElementByXPath("//span[contains(@class, 'menu-item-label') and text()='Environment']").click();
-        driver.findElementByXPath("//input[@name='name']").sendKeys("SeleniumEnv");
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//form)[2]//input[@name='name']")));
+        driver.findElementsByName("name").get(1).sendKeys("SeleniumEnv");
+
         LOGGER.info("Link infrastructure to environment");
-        driver.findElementByXPath("//div[contains(@class, 'xl-components-input') and text()='The infrastructure components of this Environment (Property: members)']/input")
+        driver.findElementByXPath("(//div[@class='xl-autocomplete-container'])[3]//input")
                 .sendKeys("Infrastructure/Selenium");
-        driver.findElementByXPath("//div[@title='Infrastructure/Selenium']").click();
+        driver.findElementByXPath("//div[@class='yt-option' and @title='Infrastructure/Selenium']/span").click();
+
         LOGGER.info("Save environment");
-        driver.findElementByXPath("//button[@class='xl-button xl-primary']").click();
+        driver.findElementByXPath("(//div[@class='dip-view-body'])[2]/div/button[1]").click();
 
         LOGGER.info("Search package to deploy, pre-condition ImportApplication has been completed");
-        WebElement searchApp =  driver.findElementByXPath("//div[contains(@class, 'entity-panel-search')]/span/input[@type='search']");
+        WebElement searchApp =  driver.findElementByXPath("//div[contains(@class, 'entity-panel-search')]//input[@type='search']");
         searchApp.sendKeys("Applications/test-dar/1.0");
         searchApp.sendKeys(Keys.RETURN);
         driver.findElementByXPath("//span[text()='Applications/test-dar/1.0']").click();
         driver.findElementByXPath("//i[@data-id='Applications/test-dar/1.0']").click();
-        driver.findElementByXPath("//li[@data-path='deploy']/span").click();
+        driver.findElementByXPath("//li[@data-path='deploy']/a").click();
 
         LOGGER.info("Search environment to deploy to package");
-        WebElement searchEnv = driver.findElementByXPath("//div[contains(@class, 'main-content')]/span/input[@type='search']");
+        WebElement searchEnv = driver.findElementByXPath("//div[contains(@class, 'filtered-multi-select')]//input[@type='search']");
         searchEnv.sendKeys("SeleniumEnv");
-        searchApp.sendKeys(Keys.RETURN);
-        driver.findElementByXPath("//li[@data-id='Environments/SeleniumEnv']/div/input[@value='Environments/SeleniumEnv']").click();
+        searchEnv.sendKeys(Keys.RETURN);
+        driver.findElementByXPath("//li[@data-id='Environments/SeleniumEnv']//input[@value='Environments/SeleniumEnv']").click();
 
-        LOGGER.info("Click Continue button");
-        driver.findElementByXPath("//button[@class='xl-button xl-primary continue-btn']").click();
+        LOGGER.info("Environment(s) selected, click Continue button");
+        driver.findElementByXPath("//button[contains(@class, 'continue-btn')]").click();
 
+        LOGGER.info("No special configuration to be done, initiate deployment");
+        driver.findElementByCssSelector("button.xl-button.xl-primary.btn.btn-default").click();
 
-        LOGGER.info("Initiate deployment");
-        driver.findElementByXPath("//div[contains(@class, 'xl-category-content') and text()='Operating system the host runs (Property: os)']").click();
+        LOGGER.info("Finish deployment");
+        driver.findElementByXPath("//button[contains(@class, 'finish-btn')]").click();
+
+//        LOGGER.info("Open Task monitor => Deployment tasks");
+//        driver.findElementByXPath("//div[@class='entity-panel-search']//span[@class='search-clear']").click();
 
     }
 
     /** Perform assertions on application package import. */
     @Override
     protected void performAssertion(ChromeDriver driver) {
+
 
     }
 
