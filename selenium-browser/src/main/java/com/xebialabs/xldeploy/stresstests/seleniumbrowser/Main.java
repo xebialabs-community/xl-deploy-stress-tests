@@ -49,6 +49,8 @@ public class Main {
 
         ImportApplication packageUpload = new ImportApplication();
         packageUpload.simulate(driver);
+
+        driver.quit();
     }
 
     /** Copies Chrome driver resource to the right directory needed by Selenium to spin up. */
