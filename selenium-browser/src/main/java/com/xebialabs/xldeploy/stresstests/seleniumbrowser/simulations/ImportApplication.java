@@ -28,10 +28,7 @@ public class ImportApplication extends SimulationBase {
         driver.findElement(By.xpath("//li[@data-path='import->fromComputer']/a")).click();
 
         File testPackage = new File(getClass().getClassLoader().getResource("test-dar-1.0.dar").getFile());
-
-        WebElement input =  driver.findElementByXPath("//input[@name='ajax_upload_file_input']");
-        driver.executeScript("arguments[0].style.display = 'block';", input);
-        input.sendKeys(testPackage.getAbsolutePath());
+        driver.findElementByXPath("//input[@name='ajax_upload_file_input']").sendKeys(testPackage.getAbsolutePath());
         driver.findElementByXPath("//button[@class='xl-button xl-primary']").click();
 
         performAssertion(driver);
