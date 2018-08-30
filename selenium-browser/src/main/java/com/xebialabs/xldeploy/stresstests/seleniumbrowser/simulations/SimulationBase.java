@@ -1,6 +1,5 @@
 package com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations;
 
-import com.xebialabs.xldeploy.stresstests.seleniumbrowser.Main;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public abstract class SimulationBase {

@@ -1,5 +1,6 @@
 package com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,9 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-import org.junit.Assert;
 
 /** XL Deploy -> Applications ->  Import -> From computer: "POST /deployit/package/upload/test-dar-1.0.dar" */
 public class ImportApplication extends SimulationBase {
