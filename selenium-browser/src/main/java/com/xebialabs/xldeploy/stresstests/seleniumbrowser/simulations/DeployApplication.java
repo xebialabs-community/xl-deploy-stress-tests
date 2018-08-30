@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.logging.Logger;
+import org.junit.Assert;
 
 /**
  * Browser automation for: XL Deploy -> Start a deployment "POST /deployit/deployment"
@@ -76,19 +77,20 @@ public class DeployApplication extends SimulationBase {
         LOGGER.info("No special configuration to be done, initiate deployment");
         driver.findElementByCssSelector("button.xl-button.xl-primary.btn.btn-default").click();
 
+        performAssertion(driver);
+
         LOGGER.info("Finish deployment");
         driver.findElementByXPath("//button[contains(@class, 'finish-btn')]").click();
-
-//        LOGGER.info("Open Task monitor => Deployment tasks");
-//        driver.findElementByXPath("//div[@class='entity-panel-search']//span[@class='search-clear']").click();
 
     }
 
     /** Perform assertions on application package import. */
     @Override
     protected void performAssertion(ChromeDriver driver) {
-
-
+        WebElement deploymentSummary = driver.findElementByXPath(
+                "//span[contains(@class, 'node-name') and text()='Deploy test-dar 1.0 on SeleniumEnv']");
+        Assert.assertNotNull(deploymentSummary);
+        Assert.assertNotNull(driver.findElementByCssSelector("span.status-tracker.done"));
     }
 
 }
