@@ -75,13 +75,13 @@ public class DeployApplication extends SimulationBase {
         driver.findElementByXPath("//button[contains(@class, 'continue-btn')]").click();
 
         LOGGER.info("No special configuration to be done, initiate deployment");
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.xl-button.xl-primary.btn.btn-default")));
         driver.findElementByCssSelector("button.xl-button.xl-primary.btn.btn-default").click();
 
+        LOGGER.info("Assertions on deploy status and finish deployment");
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'finish-btn')]")));
         performAssertion(driver);
-
-        LOGGER.info("Finish deployment");
         driver.findElementByXPath("//button[contains(@class, 'finish-btn')]").click();
-
     }
 
     /** Perform assertions on application package import. */
