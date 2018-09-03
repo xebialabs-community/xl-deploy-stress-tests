@@ -1,0 +1,29 @@
+// Applying the Application plugin also implicitly applies the Java plugin
+apply plugin: 'application'
+
+repositories {
+  mavenCentral()
+}
+
+ext {
+  SELENIUM_VERSION = "3.14.0"
+}
+
+dependencies {
+  // Selenium Java Client Driver
+  compile "org.seleniumhq.selenium:selenium-java:${SELENIUM_VERSION}"
+  compile "junit:junit:4.12"
+}
+
+def applicationJvmArgs = []
+['baseUrl', 'username', 'password'].each {
+  if (project.hasProperty(it)) {
+    applicationJvmArgs.add("-Dxld.selenium-browser.$it=${project.property(it)}")
+  }
+}
+
+run {
+  jvmArgs applicationJvmArgs
+}
+
+mainClassName = "com.xebialabs.xldeploy.stresstests.seleniumbrowser.Main"
