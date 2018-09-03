@@ -43,6 +43,8 @@ public class Main {
 
         DeployApplication deployPackage = new DeployApplication();
         deployPackage.simulate(driver);
+
+        driver.quit();
     }
 
     /** Copies Chrome driver resource to the right directory needed by Selenium to spin up. */
