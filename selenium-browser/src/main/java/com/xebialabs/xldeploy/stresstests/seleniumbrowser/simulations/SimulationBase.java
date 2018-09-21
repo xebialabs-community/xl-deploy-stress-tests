@@ -1,6 +1,7 @@
 package com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations;
 
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class SimulationBase {
     public static final String OS_NAME = "os.name";
@@ -17,9 +18,9 @@ public abstract class SimulationBase {
     public static final String OS_WIN_DRIVER_KEY = ".exe";
     public static final String OS_NOT_SUPPORTED_ERR_MSG = "OS type unsupported";
 
-    public abstract void simulate(ChromeDriver driver);
+    public abstract void simulate(WebDriver driver);
 
-    protected abstract void performAssertion(ChromeDriver driver);
+    protected abstract void performAssertion(WebDriver driver);
 
     /** Gets the OS chrome driver resource indicator based on OS name. **/
     public static String getOSDriverKey() {

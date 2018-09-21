@@ -8,13 +8,17 @@ repositories {
 ext {
   SELENIUM_VERSION = "3.14.0"
   JUNIT_VERSION = "4.12"
-
+  SLF4J_VERSION = "1.7.25"
+  LOGBACK_VERSION = "1.2.3"
 }
 
 dependencies {
   // Selenium Java Client Driver
   compile "org.seleniumhq.selenium:selenium-java:${SELENIUM_VERSION}"
   compile "junit:junit:${JUNIT_VERSION}"
+  compile "org.slf4j:slf4j-api:${SLF4J_VERSION}"
+  compile "ch.qos.logback:logback-classic:${LOGBACK_VERSION}"
+  compile "ch.qos.logback:logback-core:${LOGBACK_VERSION}"
 }
 
 def applicationJvmArgs = []

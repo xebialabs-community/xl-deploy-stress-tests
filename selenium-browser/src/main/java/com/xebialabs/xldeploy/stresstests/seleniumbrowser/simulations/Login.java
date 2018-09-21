@@ -1,6 +1,8 @@
 package com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -17,7 +19,7 @@ public class Login extends SimulationBase {
     private static final String DEFAULT_CREDENTIALS = "admin";
 
     @Override
-    public void simulate(ChromeDriver driver) {
+    public void simulate(WebDriver driver) {
         String loginUrl = (System.getProperty(LOGIN_URL_KEY) == null || System.getProperty(LOGIN_URL_KEY).isEmpty())
                 ? XL_DEPLOY_LOCAL_LOGIN : System.getProperty(LOGIN_URL_KEY);
         String username = (System.getProperty(USERNAME_KEY) == null || System.getProperty(USERNAME_KEY).isEmpty())
@@ -29,20 +31,20 @@ public class Login extends SimulationBase {
         driver.get(loginUrl);
 
         //login to XL-Deploy
-        driver.findElementByXPath("//form//input[@name='username']").sendKeys(username);
-        driver.findElementByXPath("//form//input[@name='password']").sendKeys(pass);
-        driver.findElementByXPath("//form//button[@type='submit']").click();
+        driver.findElement(By.xpath("//form//input[@name='username']")).sendKeys(pass);
+        driver.findElement(By.xpath("//form//input[@name='password']")).sendKeys(pass);
+        driver.findElement(By.xpath("//form//button[@type='submit']")).click();
 
         performAssertion(driver);
     }
 
     /** Perform assertions regarding landing page after login. */
     @Override
-    protected void performAssertion(ChromeDriver driver) {
-        WebElement loggedInAs = driver.findElementByCssSelector("span.logged-in-as");
+    protected void performAssertion(WebDriver driver) {
+        WebElement loggedInAs = driver.findElement(By.cssSelector("span.logged-in-as"));
         Assert.assertNotNull(loggedInAs);
 
-        WebElement loggedInAsUsername = driver.findElementByCssSelector("span.logged-in-as span.username");
+        WebElement loggedInAsUsername = driver.findElement(By.cssSelector("span.logged-in-as span.username"));
         Assert.assertNotNull(loggedInAsUsername);
     }
 
