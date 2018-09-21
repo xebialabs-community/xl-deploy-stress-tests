@@ -10,9 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations.ImportApplication.TEST_APP;
-import static com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations.ImportApplication.TEST_APP_VERSION;
-
 /**
  * Browser automation for: XL Deploy -> Start a deployment "POST /deployit/deployment"
  */

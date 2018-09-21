@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 /** XL Deploy Login. */
 public class Login extends SimulationBase {
@@ -31,7 +30,7 @@ public class Login extends SimulationBase {
         driver.get(loginUrl);
 
         //login to XL-Deploy
-        driver.findElement(By.xpath("//form//input[@name='username']")).sendKeys(pass);
+        driver.findElement(By.xpath("//form//input[@name='username']")).sendKeys(username);
         driver.findElement(By.xpath("//form//input[@name='password']")).sendKeys(pass);
         driver.findElement(By.xpath("//form//button[@type='submit']")).click();
 

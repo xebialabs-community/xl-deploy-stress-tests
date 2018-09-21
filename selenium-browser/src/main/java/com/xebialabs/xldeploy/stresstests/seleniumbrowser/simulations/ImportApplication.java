@@ -6,17 +6,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.logging.Logger;
 
 /** XL Deploy -> Applications ->  Import -> From computer: "POST /deployit/package/upload/PetClinic-1.0.dar" */
 public class ImportApplication extends SimulationBase {
 
-    static final String TEST_APP = "collectd";
-    static final String TEST_APP_VERSION = "1.0";
-
-    private static final Logger LOGGER = Logger.getLogger(ImportApplication.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImportApplication.class);
 
     @Override
     public void simulate(WebDriver driver) {

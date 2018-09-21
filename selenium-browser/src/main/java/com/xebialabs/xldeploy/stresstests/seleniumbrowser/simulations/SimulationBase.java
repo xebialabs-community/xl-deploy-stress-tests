@@ -1,7 +1,6 @@
 package com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class SimulationBase {
     public static final String OS_NAME = "os.name";
@@ -17,6 +16,8 @@ public abstract class SimulationBase {
     public static final String OS_LINUX_DRIVER_KEY = "-linux";
     public static final String OS_WIN_DRIVER_KEY = ".exe";
     public static final String OS_NOT_SUPPORTED_ERR_MSG = "OS type unsupported";
+    protected static final String TEST_APP = "collectd";
+    protected static final String TEST_APP_VERSION = "1.0";
 
     public abstract void simulate(WebDriver driver);
 
