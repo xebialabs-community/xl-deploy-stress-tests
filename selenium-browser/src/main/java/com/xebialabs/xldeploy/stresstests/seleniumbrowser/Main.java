@@ -4,6 +4,7 @@ import com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations.DeployAppl
 import com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations.ImportApplication;
 import com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations.Login;
 import com.xebialabs.xldeploy.stresstests.seleniumbrowser.simulations.SimulationBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -21,17 +22,10 @@ public class Main {
     private static final String TEMP_DIR = "java.io.tmpdir";
     private static final String CHROMEDRIVER_ERR_MSG = "Error while setting up Chromedriver";
 
+
     /** Main entry point in the application that spins up all available browser automation scenario's. */
     public static void main(String[] args) {
-        String os = SimulationBase.getOSDriverKey();
-        System.setProperty(WEBDRIVER_CHROME_DRIVER_KEY, copyDriver(WEBDRIVER_CHROME_DRIVER, os));
-        ChromeOptions options = new ChromeOptions();
-        if (SimulationBase.OS_LINUX_DRIVER_KEY.equals(os) || SimulationBase.OS_MAC_DRIVER_KEY.equals(os)) {
-            options.addArguments("--kiosk");
-        } else {
-            options.addArguments("--start-maximized");
-        }
-        ChromeDriver driver = new ChromeDriver(options);
+        WebDriver driver = setUpDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         // login is the pre-requisite of each simulation scenario
@@ -66,6 +60,25 @@ public class Main {
         } catch (IOException e) {
             throw new IllegalStateException(CHROMEDRIVER_ERR_MSG, e);
         }
+    }
+
+    /**
+     * Sets up WebDriver implementation instance using Chrome browser on the machine that is running the automation.
+     * For enabling performance log, see  <a href="http://chromedriver.chromium.org/logging/performance-log">
+     * http://chromedriver.chromium.org/logging/performance-log</a>
+     */
+    private static WebDriver setUpDriver() {
+        String os = SimulationBase.getOSDriverKey();
+        System.setProperty(WEBDRIVER_CHROME_DRIVER_KEY, copyDriver(WEBDRIVER_CHROME_DRIVER, os));
+
+        ChromeOptions options = new ChromeOptions();
+        if (SimulationBase.OS_LINUX_DRIVER_KEY.equals(os) || SimulationBase.OS_MAC_DRIVER_KEY.equals(os)) {
+            options.addArguments("--kiosk");
+        } else {
+            options.addArguments("--start-maximized");
+        }
+
+        return new ChromeDriver(options);
     }
 
 }

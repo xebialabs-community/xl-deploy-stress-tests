@@ -118,7 +118,7 @@ It should be run against an XL Deploy Server on which the data-generator has alr
 The best is however to have more diverse and at scale data, thus a copy of obfuscated production data.
 The infrastructure for obfuscated data at scale is already available via [DEPL-13504](https://xebialabs.atlassian.net/browse/DEPL-13504).
 
-Selenium browser tests use XPath expressions that have been tested against frontend of XL Deploy version 8.1 and higher.
+Selenium browser tests use XPath expressions that have been tested against frontend of XL Deploy version 8.2.0 and higher.
 
 ## Running
 
@@ -145,5 +145,14 @@ It uses the following optional parameters :
 Example:
 
     ./gradlew :selenium-browser:run -PbaseUrl=http://localhost:4516/#/login -Pusername=admin -Ppassword=admin
-
     
+    
+## Logging 
+
+The application logs performance characteristics of the page under test (e.g. resource load times) to file under 
+root project directory `xl-deploy-stress-tests/log/perfmon_selenium.log` using slf4j and logback.
+
+ChromeDriver supports performance logging, from which you can get events of domains "Timeline", "Network", and "Page", 
+as well as trace data for specified trace categories. Documentation on Performance Log for ChromeDriver can be found 
+[here](http://chromedriver.chromium.org/logging/performance-log)
+
