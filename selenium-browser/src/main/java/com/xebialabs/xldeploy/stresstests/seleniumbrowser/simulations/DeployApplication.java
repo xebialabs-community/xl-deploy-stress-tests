@@ -41,7 +41,7 @@ public class DeployApplication extends SimulationBase {
         String os = getOSDriverKey();
         String osOption = (SimulationBase.OS_LINUX_DRIVER_KEY.equals(os) || SimulationBase.OS_MAC_DRIVER_KEY.equals(os))
                 ? "UNIX" : "WINDOWS";
-        driver.findElement(By.xpath("(//div[@class='xl-autocomplete-container'])[1]//input")).sendKeys(osOption);
+        driver.findElement(By.xpath("(//div[@class='xl-autocomplete-container'])[2]//input")).sendKeys(osOption);
 
         LOGGER.info("Save infrastructure and close tab");
         driver.findElement(By.xpath("(//div[@class='dip-view-body'])[1]/div/button[1]")).click();
