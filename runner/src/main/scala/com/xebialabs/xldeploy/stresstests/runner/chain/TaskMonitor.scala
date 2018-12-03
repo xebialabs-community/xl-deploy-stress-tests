@@ -16,15 +16,15 @@ object TaskMonitor {
       check(regex("id=\\\"([0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})\\\"").findAll.saveAs("taskIds"))).
       foreach("${taskIds}", "taskId") {
         exec(http("Get task info")
-          .get("/deployit/task/${taskId}")
+          .get("/task/${taskId}")
         )}
 
   def getTaskV2Infos() =
     exec(http("Get a task v2 id")
-      .get("/deployit/tasks/v2/current")
+      .get("/tasks/v2/current")
       .check(regex("id=\\\"([0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})\\\"").findAll.saveAs("taskTwoIds")))
       .foreach("${taskTwoIds}", "taskTwoId") {
         exec(http("Get task info")
-          .get("/deployit/tasks/v2/${taskTwoId}"))}
+          .get("/tasks/v2/${taskTwoId}"))}
 
 }

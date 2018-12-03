@@ -23,6 +23,8 @@ class DashboardReportSimulation extends SimulationBase(reportsPageScenario(1))
 
 class CustomerSimulation extends SimulationBase(customerSimulationScenario(1))
 
+class Clean extends SimulationBase(cleanScenario)
+
 class LatencyOnRenameSimulation extends Simulation {
 
   private val rampUpPeriod = simulations.realistic.rampUpPeriod

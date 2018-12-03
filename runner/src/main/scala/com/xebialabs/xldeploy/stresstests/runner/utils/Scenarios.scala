@@ -59,14 +59,17 @@ object Scenarios {
 
   def customerSimulationScenario(repeats: Int) = scenario("Customer Simulation")
     .exec(_.set("userNr", userNumber.getAndIncrement())).
-    repeat(repeats) {
       exec(UserInterface.load).
         exec(ImportDar.generateAndUploadPackage("GeneratedApplication", "0.0.1", 5, 2)).
-        exec(Infrastructure.create("vm")).
+        exec(Infrastructure.create("Infra${userNr}")).
         exec(Environment.create("perfmon")).
         exec(Repository.readCIS()).
+        exec(Deployment.prepareInitialDeployment("Applications/cmdapp0/0", "Environments/env${userNr}")).
         exec(Deployment.executeDeployment).
-        exec(TaskMonitor.getTaskInfos(), TaskMonitor.getTaskV2Infos())
-    }
+    exec(TaskMonitor.getTaskInfos(), TaskMonitor.getTaskV2Infos())
+
+  val cleanScenario = scenario("Clean Environment").exec(
+    Repository.deleteApplications, Repository.deleteEnvironments, Repository.deleteInfrastructures
+  )
 
 }
