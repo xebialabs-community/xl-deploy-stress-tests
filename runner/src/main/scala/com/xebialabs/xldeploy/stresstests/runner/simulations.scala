@@ -21,6 +21,8 @@ class CopyFiles800Simulation extends SimulationBase(copyFilesScenario(800))
 
 class DashboardReportSimulation extends SimulationBase(reportsPageScenario(1))
 
+class CustomerSimulation extends SimulationBase(customerSimulationScenario(1))
+
 class LatencyOnRenameSimulation extends Simulation {
 
   private val rampUpPeriod = simulations.realistic.rampUpPeriod

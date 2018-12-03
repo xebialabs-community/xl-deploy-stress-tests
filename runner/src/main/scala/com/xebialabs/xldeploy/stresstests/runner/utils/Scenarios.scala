@@ -56,4 +56,17 @@ object Scenarios {
       exec(ImportDar.generateAndUploadPackage("GeneratedApplication", "0.0.1", 5, 2)).
         exec(Application.delete("GeneratedApplication${userNr}"))
     }
+
+  def customerSimulationScenario(repeats: Int) = scenario("Customer Simulation")
+    .exec(_.set("userNr", userNumber.getAndIncrement())).
+    repeat(repeats) {
+      exec(UserInterface.load).
+        exec(ImportDar.generateAndUploadPackage("GeneratedApplication", "0.0.1", 5, 2)).
+        exec(Infrastructure.create("vm")).
+        exec(Environment.create("perfmon")).
+        exec(Repository.readCIS()).
+        exec(Deployment.executeDeployment).
+        exec(TaskMonitor.getTaskInfos(), TaskMonitor.getTaskV2Infos())
+    }
+
 }
