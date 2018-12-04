@@ -1,11 +1,16 @@
 package com.xebialabs.xldeploy.stresstests.runner.chain
 
 import java.net.URLEncoder.encode
+
 import io.gatling.core.Predef._
+import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
+
 import scala.concurrent.duration._
 
 object Deployment {
+
+  val json_utf_8_header = Map("Accept-Type" -> "application/json","Content-Type" -> "application/json;charset=UTF-8")
 
   def prepareInitialDeployment(versionId: String, environmentId: String) =
     exec(http("1. Prepare initial deployment").
@@ -48,5 +53,122 @@ object Deployment {
         post("/tasks/v2/${taskId}/archive").
         check(status.is(204))
       )
+
+  def customerDeployment = exec(http("Before deployment")
+    .post("/repository/cis/read")
+    .headers(json_utf_8_header)
+    .body(StringBody(""" [] """)).asJSON)
+    .pause(3)
+    .exec(http("Deployment")
+    .post("/deployment")
+    .headers(json_utf_8_header)
+    .body(StringBody(""" {
+				"id": "deployment-bd059d09-70f7-43ff-8c67-614688f67042",
+				"type": "INITIAL",
+				"deploymentGroupIndex": 0,
+				"application": {
+					"id": "Environments/${userNr}/${userNr}",
+					"type": "udm.DeployedApplication",
+					"version": "Applications/GeneratedApplication${userNr}/0.0.1",
+					"environment": "Environments/${userNr}",
+					"deployeds": [],
+					"orchestrator": [],
+					"optimizePlan": true,
+					"boundConfigurationItems": [],
+					"unresolvedPlaceholders": {},
+					"undeployDependencies": false
+				},
+				"deployeds": [],
+				"deployables": [
+					{
+						"ci": "Applications/GeneratedApplication${userNr}/0.0.1/collectd-fast-jmx",
+						"type": "file.Archive"
+					}
+				],
+				"containers": [
+					{
+						"ci": "Infrastructure/${userNr}",
+						"type": "overthere.LocalHost"
+					}
+				],
+				"requiredDeployments": []} """)).check(status.is(200)))
+    .pause(3)
+    .exec(http("Prepare deployeds")
+    .post("/deployment/prepare/deployeds")
+    .headers(json_utf_8_header)
+    .body(StringBody(""" {
+				"id": "deployment-bd059d09-70f7-43ff-8c67-614688f67042",
+				"type": "INITIAL",
+				"deploymentGroupIndex": 0,
+				"application": {
+					"id": "Environments/${userNr}/${userNr}",
+					"type": "udm.DeployedApplication",
+					"version": "Applications/GeneratedApplication${userNr}/0.0.1",
+					"environment": "Environments/${userNr}",
+					"deployeds": [],
+					"orchestrator": [],
+					"optimizePlan": true,
+					"boundConfigurationItems": [],
+					"unresolvedPlaceholders": {},
+					"undeployDependencies": false
+				},
+				"deployeds": [],
+				"deployables": [
+					{
+						"ci": "Applications/GeneratedApplication${userNr}/0.0.1/collectd-fast-jmx",
+						"type": "file.Archive"
+					}
+				],
+				"containers": [
+					{
+						"ci": "Infrastructure/${userNr}",
+						"type": "overthere.LocalHost"
+					}
+				],
+				"requiredDeployments": []} """)).check(status.is(200)))
+    .pause(3)
+    .exec(http("Validate deployment")
+    .post("/deployment/validate")
+    .headers(json_utf_8_header)
+    .body(StringBody(""" {
+				"id": "deployment-bd059d09-70f7-43ff-8c67-614688f67042",
+				"type": "INITIAL",
+				"deploymentGroupIndex": 0,
+				"application": {
+					"id": "Environments/${userNr}/${userNr}",
+					"type": "udm.DeployedApplication",
+					"version": "Applications/GeneratedApplication${userNr}/0.0.1",
+					"environment": "Environments/${userNr}",
+					"deployeds": [],
+					"orchestrator": [],
+					"optimizePlan": true,
+					"boundConfigurationItems": [],
+					"unresolvedPlaceholders": {},
+					"undeployDependencies": false
+				},
+				"deployeds": [],
+				"deployables": [
+					{
+						"ci": "Applications/GeneratedApplication${userNr}/0.0.1/collectd-fast-jmx",
+						"type": "file.Archive"
+					}
+				],
+				"containers": [
+					{
+						"ci": "Infrastructure/${userNr}",
+						"type": "overthere.LocalHost"
+					}
+				],
+				"requiredDeployments": []} """)).check(status.is(200)))
+    .pause(3)
+    .exec(http("After deployment")
+    .post("/repository/cis/read")
+    .headers(json_utf_8_header)
+    .body(StringBody(""" ["Applications/${userNr}/0.0.1"] """)).asJSON)
+    .pause(3)
+    .exec(http("Check deployment exists")
+    .get("/deployment/exists")
+    .queryParam("application", "Applications/GeneratedApplication${userNr}")
+    .queryParam("environment", "Environments/${userNr}"))
 
 }

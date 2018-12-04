@@ -1,19 +1,22 @@
 package com.xebialabs.xldeploy.stresstests.runner.chain
 
+import com.xebialabs.xldeploy.stresstests.runner.config.RunnerConfig
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
 object TaskMonitor {
 
+  val baseUrl = RunnerConfig.input.baseUrls.head
+
   def getCurrentTasks() =
     exec(http("1. Get deployment and control tasks").
-      get("http://xlperf1:4516/deployit/tasks/v2/current").
+      get("${baseUrl}/tasks/v2/current").
       check(status.is(200)))
 
   def getTaskInfos() =
     exec(http("2. Get a deployment and control ").
       get("/task/current").
-      check(regex("id=\\\"([0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})\\\"").findAll.saveAs("taskIds"))).
+      check(regex("id=\\\"([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})\\\"").findAll.saveAs("taskIds"))).
       foreach("${taskIds}", "taskId") {
         exec(http("Get task info")
           .get("/task/${taskId}")
