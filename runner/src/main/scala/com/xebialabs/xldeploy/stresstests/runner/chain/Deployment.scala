@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 
 object Deployment {
 
-  val json_utf_8_header = Map("Accept-Type" -> "application/json","Content-Type" -> "application/json;charset=UTF-8")
+  val jsonUtf8Header = Map("Accept-Type" -> "application/json","Content-Type" -> "application/json;charset=UTF-8")
 
   def prepareInitialDeployment(versionId: String, environmentId: String) =
     exec(http("1. Prepare initial deployment").
@@ -56,12 +56,12 @@ object Deployment {
 
   def customerDeployment = exec(http("Before deployment")
     .post("/repository/cis/read")
-    .headers(json_utf_8_header)
+    .headers(jsonUtf8Header)
     .body(StringBody(""" [] """)).asJSON)
     .pause(3)
     .exec(http("Deployment")
     .post("/deployment")
-    .headers(json_utf_8_header)
+    .headers(jsonUtf8Header)
     .body(StringBody(""" {
 				"id": "deployment-bd059d09-70f7-43ff-8c67-614688f67042",
 				"type": "INITIAL",
@@ -95,7 +95,7 @@ object Deployment {
     .pause(3)
     .exec(http("Prepare deployeds")
     .post("/deployment/prepare/deployeds")
-    .headers(json_utf_8_header)
+    .headers(jsonUtf8Header)
     .body(StringBody(""" {
 				"id": "deployment-bd059d09-70f7-43ff-8c67-614688f67042",
 				"type": "INITIAL",
@@ -129,7 +129,7 @@ object Deployment {
     .pause(3)
     .exec(http("Validate deployment")
     .post("/deployment/validate")
-    .headers(json_utf_8_header)
+    .headers(jsonUtf8Header)
     .body(StringBody(""" {
 				"id": "deployment-bd059d09-70f7-43ff-8c67-614688f67042",
 				"type": "INITIAL",
@@ -163,7 +163,7 @@ object Deployment {
     .pause(3)
     .exec(http("After deployment")
     .post("/repository/cis/read")
-    .headers(json_utf_8_header)
+    .headers(jsonUtf8Header)
     .body(StringBody(""" ["Applications/${userNr}/0.0.1"] """)).asJSON)
     .pause(3)
     .exec(http("Check deployment exists")

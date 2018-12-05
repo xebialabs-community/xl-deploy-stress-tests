@@ -6,7 +6,7 @@ import io.gatling.http.request.StringBody
 
 object Infrastructure {
 
-  val json_utf_8_header = Map("Accept-Type" -> "application/json","Content-Type" -> "application/json;charset=UTF-8")
+  val jsonUtf8Header = Map("Accept-Type" -> "application/json","Content-Type" -> "application/json;charset=UTF-8")
 
   def create(name: String) =
     exec(http("1. Create infrastructure").
@@ -26,7 +26,7 @@ object Infrastructure {
 
   def createCustomerInfrastructure = exec(http("Create infrastructure")
     .post("/repository/ci/Infrastructure/${userNr}")
-    .headers(json_utf_8_header)
+    .headers(jsonUtf8Header)
     .body(StringBody("""{"id":"Infrastructure/${userNr}","type":"overthere.LocalHost","os":"UNIX"}""")).asJSON
     .check(status.is(200)))
 
