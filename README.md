@@ -103,6 +103,8 @@ It uses the following optional parameters :
         - `ReadRepositorySimulation`
         - `RunCommandsSimulation`
         - `DashboardReportSimulation`
+        - `CustomerSimulation`
+        - `Clean`: Use this if you want to clean environment.
     - The default value is `CopyFiles400Simulation`
 
 Example:
@@ -138,7 +140,7 @@ It uses the following optional parameters :
 - **Username**: The username that will be used to connect to the server instance. This username needs "admin" permissions in order to view all data
     - Syntax : `-Pusername=admin`
     - The default value is `admin`
-- **Password**: The password of the user account that will be used to connect to the server instance.
+- **Password**: The password of the user account that will be used to connect to the server instance
     - Syntax : `-Ppassword=admin`
     - The default value is `admin`
 

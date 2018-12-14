@@ -56,4 +56,31 @@ object Scenarios {
       exec(ImportDar.generateAndUploadPackage("GeneratedApplication", "0.0.1", 5, 2)).
         exec(Application.delete("GeneratedApplication${userNr}"))
     }
+
+  def customerSimulationScenario(repeats: Int) = scenario("Customer Simulation")
+    .exec(_.set("userNr", userNumber.getAndIncrement()))
+    .exec(_.set("rand", Random.nextInt())).
+      exec(UserInterface.load).
+        exec(ImportDar.generateAndUploadPackage("GeneratedApplication", "0.0.1", 5, 2)).
+        exec(Infrastructure.create("Infra${userNr}")).
+        exec(Environment.create("RenameEnv${rand}-${userNr}")).
+        exec(Repository.readCIS()).
+        exec(Deployment.prepareInitialDeployment("Applications/cmdapp0/0", "Environments/env${userNr}")).
+        exec(Deployment.executeDeployment).
+    exec(TaskMonitor.getTaskInfos(), TaskMonitor.getTaskV2Infos())
+
+  def deneme(repeats: Int) = scenario("Customer Simulation")
+    .exec(_.set("userNr", userNumber.getAndIncrement())).
+    exec(UserInterface.load).
+    exec(ImportDar.generateAndUploadPackage("GeneratedApplication", "0.0.1", 5, 2)).
+    exec(Infrastructure.createCustomerInfrastructure).
+    exec(Environment.createCustomerEnvironment).
+    exec(Repository.readCIS()).
+    exec(Deployment.customerDeployment).
+    exec(TaskMonitor.getTaskInfos(), TaskMonitor.getTaskV2Infos())
+
+  val cleanScenario = scenario("Clean Environment").exec(
+    Repository.deleteApplications, Repository.deleteEnvironments, Repository.deleteInfrastructures
+  )
+
 }

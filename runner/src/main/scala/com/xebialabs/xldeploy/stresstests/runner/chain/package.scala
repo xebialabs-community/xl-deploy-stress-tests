@@ -6,6 +6,8 @@ import io.gatling.http.request.StringBody
 
 object Infrastructure {
 
+  val jsonUtf8Header = Map("Accept-Type" -> "application/json","Content-Type" -> "application/json;charset=UTF-8")
+
   def create(name: String) =
     exec(http("1. Create infrastructure").
       post(s"/repository/ci/Infrastructure/$name").
@@ -21,5 +23,11 @@ object Infrastructure {
     exec(http("3. Delete infrastructure").
       delete(s"/repository/ci/Infrastructure/$name").
       check(status.is(204)))
+
+  def createCustomerInfrastructure = exec(http("Create infrastructure")
+    .post("/repository/ci/Infrastructure/${userNr}")
+    .headers(jsonUtf8Header)
+    .body(StringBody("""{"id":"Infrastructure/${userNr}","type":"overthere.LocalHost","os":"UNIX"}""")).asJSON
+    .check(status.is(200)))
 
 }
