@@ -1,3 +1,6 @@
 language: java
 script:
-- ./gradlew assemble
+- "./gradlew assemble"
+notifications:
+  slack:
+    secure: FymPyjiAngmhukxcVaqe8Sw5yXCxMA/iO7E6f7o0Gz9mPjzONcN9qqFt+5+3Vtz5me0kJt/p347hWjc6cMowgczqf1vp5pmcRRyW/vWtMcwkiRmf0ibvZFQjX18Rr/08w5v70DKomk1PBwcBTEjcESdPPXV+t7Pcker4/R2D/YjmnMYhX1XqTIvhekl/zpSi4vRvcyMptRrqNZp+CLozq7hFy2jHO8A1adr7VEz/zd1Cw2c/PSBwzguRpMIBIfbyV4KIVi8Iq5If0UbP1cqdUB/LcYJwvMUeyJdcsNFSifDmmZwVsepPpr+gaN8WD3M6qRZWdrueSWE66JDBQxjG24kePkbGj/phTp0wxbzRFZ1w8q/aDHLruQNW6/k44JobJs/IzVJ9PvkfKdvUJC0199zAqxrr05qVhxtVOW19U7qZ6uzMlgJ4tLIL2pmat+BGr11S/IfphhnpgO+KDXs/fBp/wPveA90V84oGFY7flmU/IpB8H2FptP8OqZFmSFEYOLmAK6qbbKTDetKNUghXFCOBWp3+ZlBDhTG6YU8H8hVWl4riaUH7DwPsJryQPglPK+5z5G+bziPlCrqMCVjNsG+KDQnlvv7ysMA+SvMisYfNCbIHbCSH7vafvFSSn1vR51BsihlMtHkyzp6EQvoAbDK5jdpH04eb0EbVvlNelyY=
